@@ -6,12 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".SignUp">
 
-    <ImageView
+
+    <EditText
+        android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/god"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/horizontalMargin"
+        android:layout_marginRight="@dimen/horizontalMargin"
+        android:layout_marginTop="200dp"
+        android:ems="10"
+        android:hint="@string/nameInput"
+        android:textSize="@dimen/textInputSize"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/email"
@@ -19,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/horizontalMargin"
         android:layout_marginRight="@dimen/horizontalMargin"
+        android:layout_marginTop="@dimen/marginTopComponents"
         android:ems="10"
         android:hint="@string/correoInput"
         android:textSize="@dimen/textInputSize"
@@ -31,37 +40,11 @@
         android:layout_marginLeft="@dimen/horizontalMargin"
         android:layout_marginRight="@dimen/horizontalMargin"
         android:layout_marginTop="@dimen/marginTopComponents"
+        android:layout_marginBottom="80dp"
         android:ems="15"
         android:hint="@string/passwordInput"
         android:textSize="@dimen/textInputSize"
         android:inputType="textPassword" />
-
-    <TextView
-        android:id="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:text="@string/signUp"
-        android:textColor= "@color/purpleText"
-        android:textSize="@dimen/textInputSize"
-        android:textAlignment="center"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"/>
-    
-    <Button
-        android:id="@+id/logInButton"
-        android:layout_width="237dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/round_button"
-        android:text="@string/logIn"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textInputSize"
-        android:foreground="?attr/selectableItemBackground"
-        />
 
     <TextView
         android:id="@+id/forgotPassword"
@@ -76,5 +59,18 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?attr/selectableItemBackground"/>
+
+    <Button
+        android:id="@+id/logInButton"
+        android:layout_width="237dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/marginTopComponents"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/round_button"
+        android:text="@string/signUp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textInputSize"
+        android:foreground="?attr/selectableItemBackground"
+        />
 
 </LinearLayout>

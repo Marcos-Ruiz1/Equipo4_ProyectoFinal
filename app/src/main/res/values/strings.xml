@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Equipo4_ProyectoFinal</string>
+    <string name="correoInput">Correo Eléctronico</string>
+    <string name="passwordInput">Password</string>
+    <string name="forgottenPassword">Olvidé mi contraseña</string>
+    <string name="signUp">Registrarse</string>
+    <string name="logIn">Iniciar sesión</string>
+    <string name="nameInput">Nombre de usuario</string>
+    <string name="recoverPassword">Generar nueva contraseña</string>
 </resources>
