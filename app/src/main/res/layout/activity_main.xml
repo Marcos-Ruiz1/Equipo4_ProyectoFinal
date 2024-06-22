@@ -36,7 +36,7 @@
         android:textSize="@dimen/textInputSize"
         android:inputType="textPassword" />
 
-    <TextView
+    <Button
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,8 +47,8 @@
         android:textSize="@dimen/textInputSize"
         android:textAlignment="center"
         android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"/>
+        android:background="@android:color/transparent"
+        android:focusable="true"/>
     
     <Button
         android:id="@+id/logInButton"
@@ -60,10 +60,9 @@
         android:text="@string/logIn"
         android:textColor="@color/white"
         android:textSize="@dimen/textInputSize"
-        android:foreground="?attr/selectableItemBackground"
         />
 
-    <TextView
+    <Button
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,6 +74,6 @@
         android:textAlignment="center"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"/>
+        android:background="@android:color/transparent"/>
 
 </LinearLayout>
