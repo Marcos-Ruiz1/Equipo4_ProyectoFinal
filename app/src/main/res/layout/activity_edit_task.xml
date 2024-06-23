@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/basic_backgroud"
+    tools:context=".Edit_Task_Activity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tituloEditarTarea"
+        android:background="@drawable/title_border"
+        android:gravity="center"
+        android:fontFamily="sans-serif-light"
+        android:paddingVertical="10dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textHeaderSize"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:id="@+id/tituloTarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:hint="@string/taskTitle"
+                android:textSize="@dimen/textInputSize"
+                android:paddingVertical="24dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:layout_marginHorizontal="20dp"
+                />
+
+            <EditText
+                android:id="@+id/descripcionTarea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:inputType="textMultiLine"
+                android:textColor="@color/black"
+                android:paddingVertical="24dp"
+                android:textColorHint="@color/gray"
+                android:textSize="@dimen/textInputSize"
+                android:hint="@string/taskDescription"
+                android:layout_marginHorizontal="20dp"
+                />
+
+            <Spinner
+                android:id="@+id/prioritySpinner"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="80dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/categories"
+                android:gravity="center"
+                android:textSize="@dimen/textHeaderSize"
+                android:textColor="@color/black"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginVertical="30dp"
+                >
+
+                <EditText
+                    android:id="@+id/textoCategoria"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="80dp"
+                    android:textSize="@dimen/textInputSize" />
+
+                <Button
+                    android:id="@+id/botonAgregarCategoria"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/round_button"
+                    android:text="@string/agregarButton" />
+
+            </LinearLayout>
+
+            <GridLayout
+                android:id="@+id/layoutCategorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <!--                para inflar-->
+
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deadline"
+                android:textSize="30sp"
+                android:textColor="@color/black"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black"
+                android:layout_marginHorizontal="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <com.loper7.date_time_picker.number_picker.NumberPicker
+                    android:id="@+id/np_datetime_year"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:np_dividerColor="#E5E5E5"
+                    app:np_textSize="15sp"
+                    app:np_selectedTextSize="15sp"
+                    app:np_dividerThickness="0.6dp"
+                    app:np_height="184dp"
+                    app:np_wheelItemCount="3" />
+
+
+                <com.loper7.date_time_picker.number_picker.NumberPicker
+                    android:id="@+id/np_datetime_month"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:np_dividerColor="#E5E5E5"
+                    app:np_textSize="15sp"
+                    app:np_selectedTextSize="15sp"
+                    app:np_dividerThickness="0.6dp"
+                    app:np_height="184dp"
+                    app:np_wheelItemCount="3" />
+
+                <com.loper7.date_time_picker.number_picker.NumberPicker
+                    android:id="@+id/np_datetime_day"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:np_dividerColor="#E5E5E5"
+                    app:np_textSize="15sp"
+                    app:np_selectedTextSize="15sp"
+                    app:np_dividerThickness="0.6dp"
+                    app:np_height="184dp"
+                    app:np_wheelItemCount="3" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black"
+                android:layout_marginHorizontal="20dp"
+                />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginTop="40dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/withDeadline"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    />
+
+                <CheckBox
+                    android:id="@+id/checkboxDeadline"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+
+            </GridLayout>
+
+            <Button
+                android:id="@+id/botonAgregarTarea"
+                android:layout_marginVertical="40dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titutloAgregarTarea"
+                android:background="@drawable/round_button"
+                android:paddingHorizontal="60dp"
+                android:paddingVertical="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-light"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

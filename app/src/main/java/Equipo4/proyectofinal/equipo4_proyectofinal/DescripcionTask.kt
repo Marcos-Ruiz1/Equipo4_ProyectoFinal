@@ -44,7 +44,7 @@ class DescripcionTask : AppCompatActivity() {
         }
 
         updateButton.setOnClickListener {
-            val intent = Intent(this, "nombre de la clase para editar tarea"::class.java)
+            val intent = Intent(this, Edit_Task_Activity::class.java)
             intent.putExtra("titulo", tituloTask.text)
             intent.putExtra("descripcion", descripcionTask.text)
             intent.putExtra("fecha", fechaTask.text)

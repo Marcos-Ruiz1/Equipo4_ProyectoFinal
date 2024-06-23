@@ -20,8 +20,9 @@
     <string name="actualizarButton">✏️</string>
     <string name="terminarTareaButton">Terminar tarea</string>
     <string name="titutloAgregarTarea">Agregar tarea</string>
+    <string name="tituloEditarTarea">Editar tarea</string>
 
-<!--    descripcion de las tareas-->
+    <!--    descripcion de las tareas-->
     <string name="taskTitle">Titulo de la tarea</string>
     <string name="taskDescription">Descripción</string>
     <string name="categories">Categoría</string>
@@ -39,5 +40,7 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+
+<!--    fin edicion de las tareas-->
 
 </resources>
