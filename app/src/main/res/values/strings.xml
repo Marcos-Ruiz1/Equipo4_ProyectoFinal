@@ -8,11 +8,15 @@
     <string name="nameInput">Nombre de usuario</string>
     <string name="recoverPassword">Generar nueva contraseña</string>
     <string name="tasks">Tareas</string>
-    <string name="titleTask">Nombre de la tarea</string>
-    <string name="descriptionTask">Descripción de la tarea ....</string>
-    <string name="fechaTask">Due. Marzo 5 del 2024</string>
+    <string name="task">Tarea</string>
+    <string name="titleTask">Nombre</string>
+    <string name="descriptionTask">Descripción</string>
+    <string name="fechaTask">Fecha</string>
     <string name="terminarButton"> 🚩 Terminar</string>
     <string name="agregarButton">➕</string>
     <string name="estadisticasButton">📈</string>
     <string name="configuracionButton">⚙️</string>
+    <string name="eliminarButton">🗑️</string>
+    <string name="actualizarButton">✏️</string>
+    <string name="terminarTareaButton">Terminar tarea</string>
 </resources>

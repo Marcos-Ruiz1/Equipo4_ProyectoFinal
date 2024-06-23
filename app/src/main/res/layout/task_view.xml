@@ -51,6 +51,7 @@
             />
 
         <Button
+            android:id="@+id/terminarButton"
             android:text="@string/terminarButton"
             android:textSize="20sp"
             android:textColor="@color/white"
