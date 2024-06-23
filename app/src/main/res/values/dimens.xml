@@ -3,7 +3,7 @@
 
     <!--General dimens used on every activity or in almost activity (Frequently used) -->
     <dimen name="textInputSize">20sp</dimen>
-
+    <dimen name="textHeaderSize">30sp</dimen>
 
     <!--Dimesiones para las pantallas, de log in, registro y contraseña olvidada-->
     <dimen name="marginTopComponents">15dp</dimen>

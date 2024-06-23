@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         logIn.setOnClickListener {
 
+            val intent = Intent(this, TasksHome::class.java)
+            this.startActivity(intent)
         }
 
         forgotPassword.setOnClickListener{
