@@ -24,14 +24,27 @@ class DescripcionTask : AppCompatActivity() {
         val nombre = intent.getStringExtra("titulo")
         val descripcion = intent.getStringExtra("descripcion")
         val fecha = intent.getStringExtra("fecha")
+        val categoria = intent.getStringExtra("categoria")
+        val prioridad = intent.getIntExtra("prioridad", 1)
+        val estado = intent.getBooleanExtra("terminado", false)
 
         var tituloTask : TextView = findViewById(R.id.tituloTask)
         var descripcionTask : TextView = findViewById(R.id.descripcionTask)
         var fechaTask : TextView = findViewById(R.id.fechaTask)
+        var prioridadTask: TextView = findViewById(R.id.prioridadTask)
+        var categoriaTask: TextView = findViewById(R.id.categoriaTask)
+        var estadoTask: TextView = findViewById(R.id.estadoTerminadoTask)
 
         tituloTask.setText(nombre)
         descripcionTask.setText(descripcion)
         fechaTask.setText(fecha)
+        prioridadTask.setText(prioridad.toString())
+        categoriaTask.setText(categoria)
+        if(estado == false){
+            estadoTask.setText("No terminada")
+        }else{
+            estadoTask.setText("Terminada")
+        }
 
 
         //Listeners para los botones de la activity (actualizar, eliminar y terminar tarea)
