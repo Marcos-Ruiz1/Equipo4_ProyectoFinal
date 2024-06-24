@@ -21,7 +21,10 @@
     <string name="terminarTareaButton">Terminar tarea</string>
     <string name="titutloAgregarTarea">Agregar tarea</string>
     <string name="tituloEditarTarea">Editar tarea</string>
+    <string name="tituloConfiguracion">Configuración</string>
+    <string name="tituloEstadisticas">Estadísticas</string>
 
+    <string name="upArrow">^</string>
     <!--    descripcion de las tareas-->
     <string name="taskTitle">Titulo de la tarea</string>
     <string name="taskDescription">Descripción</string>
@@ -43,4 +46,14 @@
 
 <!--    fin edicion de las tareas-->
 
+
+
+<!--    configuracion-->
+    <string name="showTasksTittle">Mostrar tareas por:</string>
+
+
+<!--    Estadisticas-->
+    <string name="YearStatsTittle">Tareas terminadas al año:</string>
+    <string name="MonthStatsTittle">Tareas terminadas al mes:</string>
+    <string name="WeekStatsTittle">Tareas terminadas a la semana:</string>
 </resources>

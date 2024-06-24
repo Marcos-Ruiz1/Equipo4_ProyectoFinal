@@ -46,8 +46,10 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.google.android.material:material:1.1.0")
     implementation("com.github.loper7:DateTimePicker:0.6.3")
     implementation("com.jakewharton.threetenabp:threetenabp:1.4.7")
+
 
 }

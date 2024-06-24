@@ -4,6 +4,7 @@
     <color name="blueHeader">#1C00CC</color>
     <color name="purpleText">#4A46FF</color>
     <color name="purpleBackground">#BDB2FF</color>
+    <color name="hardPurple">#8064fc</color>
     <color name="greenEditButton">#B0CC00</color>
     <color name="redDeleteButton">#FF2400</color>
     <color name="gray">#D9D9D9</color>
