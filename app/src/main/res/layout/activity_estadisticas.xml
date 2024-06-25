@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/basic_backgroud"
     tools:context=".Estadisticas">
-
 
     <TextView
         android:layout_width="match_parent"
@@ -21,72 +21,71 @@
         android:textSize="@dimen/textHeaderSize"
         />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/YearStatsTittle"
-        android:gravity="start"
-        android:fontFamily="sans-serif-light"
-        android:paddingVertical="20dp"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/colorTextBlack"
-        android:textSize="16sp"
-        />
+        android:orientation="vertical">
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/YearChart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/YearStatsTittle"
+            android:gravity="start"
+            android:fontFamily="sans-serif-light"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="16sp"
+            />
 
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/YearChart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/MonthStatsTittle"
-        android:gravity="start"
-        android:fontFamily="sans-serif-light"
-        android:paddingVertical="20dp"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/colorTextBlack"
-        android:textSize="16sp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/MonthStatsTittle"
+            android:gravity="start"
+            android:fontFamily="sans-serif-light"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="16sp"
+            />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/MonthChart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/MonthChart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/WeekStatsTittle"
-        android:gravity="start"
-        android:fontFamily="sans-serif-light"
-        android:paddingVertical="20dp"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/colorTextBlack"
-        android:textSize="16sp"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/WeekStatsTittle"
+            android:gravity="start"
+            android:fontFamily="sans-serif-light"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="16sp"
+            />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/WeekChart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        />
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/WeekChart"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
 
-</LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
