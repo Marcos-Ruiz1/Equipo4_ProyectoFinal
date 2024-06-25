@@ -12,4 +12,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="basic_backgroud">#F8F8FF</color>
+    <color name="grayBackground">#999999</color>
+    <color name="greenPrioridad">#dbff00</color>
 </resources>

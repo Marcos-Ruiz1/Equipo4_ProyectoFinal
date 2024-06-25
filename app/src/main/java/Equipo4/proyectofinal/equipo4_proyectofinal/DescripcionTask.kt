@@ -8,6 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 
 class DescripcionTask : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +55,7 @@ class DescripcionTask : AppCompatActivity() {
         val terminarButton : Button = findViewById(R.id.terminarTaskButton)
 
         deleteButton.setOnClickListener {
-
+            mostrarAlertaEliminarTarea()
         }
 
         updateButton.setOnClickListener {
@@ -69,4 +71,27 @@ class DescripcionTask : AppCompatActivity() {
 
         }
     }
+
+
+    //Función para mostrar la alerta para confirmar la eliminación de la task
+    private fun mostrarAlertaEliminarTarea() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Eliminar Tarea")
+        builder.setMessage("¿Deseas eliminar la tarea?")
+
+        builder.setPositiveButton("Sí") { dialog, which ->
+
+            Toast.makeText(applicationContext, "Tarea eliminada", Toast.LENGTH_SHORT).show()
+
+        }
+
+        builder.setNegativeButton("No") { dialog, which ->
+
+            dialog.dismiss()
+        }
+
+        builder.show()
+    }
+
 }
