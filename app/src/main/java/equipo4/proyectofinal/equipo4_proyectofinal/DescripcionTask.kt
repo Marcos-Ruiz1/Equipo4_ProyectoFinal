@@ -1,15 +1,16 @@
-package Equipo4.proyectofinal.equipo4_proyectofinal
+package equipo4.proyectofinal.equipo4_proyectofinal
 
+import Equipo4.proyectofinal.equipo4_proyectofinal.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.appcompat.app.AlertDialog
-import android.widget.Toast
 
 class DescripcionTask : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

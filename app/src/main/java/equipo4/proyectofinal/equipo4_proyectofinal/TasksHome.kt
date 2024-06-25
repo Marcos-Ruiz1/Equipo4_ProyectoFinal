@@ -1,6 +1,7 @@
-package Equipo4.proyectofinal.equipo4_proyectofinal
+package equipo4.proyectofinal.equipo4_proyectofinal
 
 import Dominio.Task
+import Equipo4.proyectofinal.equipo4_proyectofinal.R
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -20,7 +21,7 @@ class TasksHome : AppCompatActivity() {
 
     //Adaptador y tareas
     private var adaptador: AdaptadorTasks? = null
-    var tasks  = ArrayList<Task>()
+    private var tasks  = ArrayList<Task>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -70,7 +71,7 @@ class TasksHome : AppCompatActivity() {
 
 
     //Método que instancia objetos Task, que luego se mostrarán en pantalla con el GridView
-    fun fillTasks(){
+    private fun fillTasks(){
 
         tasks.add(Task("realizar informes", "tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe", "10/06/2024", "Educación", 10, false))
         tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final del curso a los profesores y compañeros", "15/07/2024", "Escuela", 9, false))
@@ -129,11 +130,11 @@ class TasksHome : AppCompatActivity() {
             var prioridadTask: TextView = vista.findViewById(R.id.prioridadTaskTextView)
             var categoriaTask: TextView = vista.findViewById(R.id.categoriaTaskTextView)
 
-            tituloTask.setText(task.titulo)
-            descripcionTask.setText(task.descripcion)
-            fechaTask.setText(task.fecha)
-            prioridadTask.setText(task.prioridad.toString())
-            categoriaTask.setText(task.categoria)
+            tituloTask.text = task.titulo
+            descripcionTask.text = task.descripcion
+            fechaTask.text = task.fecha
+            prioridadTask.text = task.prioridad.toString()
+            categoriaTask.text = task.categoria
 
             terminarTurno.setOnClickListener {
 

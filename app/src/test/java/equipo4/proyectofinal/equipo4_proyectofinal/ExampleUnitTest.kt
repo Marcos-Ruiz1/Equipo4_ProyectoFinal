@@ -1,4 +1,4 @@
-package Equipo4.proyectofinal.equipo4_proyectofinal
+package equipo4.proyectofinal.equipo4_proyectofinal
 
 import org.junit.Test
 

@@ -1,5 +1,6 @@
-package Equipo4.proyectofinal.equipo4_proyectofinal
+package equipo4.proyectofinal.equipo4_proyectofinal
 
+import Equipo4.proyectofinal.equipo4_proyectofinal.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -12,15 +13,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.jakewharton.threetenabp.AndroidThreeTen
-import java.util.Calendar
-import java.util.Date
 
-class Edit_Task_Activity : AppCompatActivity() {
+class AgregarTask : AppCompatActivity() {
 
-    data class fechas(val dia: Int, val mes: Int, val anio: Int)
-
-    //    Atributos de la pantalla
+//    Atributos de la pantalla
     private lateinit var textoTitulo: EditText
     private lateinit var textoDescripcion: EditText
     private lateinit var spinner: Spinner
@@ -34,13 +30,11 @@ class Edit_Task_Activity : AppCompatActivity() {
     private lateinit var botonAgregar: Button
 //    fin de los atributos de la pantalla
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        AndroidThreeTen.init(this)
-
         enableEdgeToEdge()
-        setContentView(R.layout.activity_edit_task)
+        setContentView(R.layout.activity_agregar_task)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -59,13 +53,8 @@ class Edit_Task_Activity : AppCompatActivity() {
         checkBoxSinFehca      = findViewById<CheckBox>(R.id.checkboxDeadline)
         botonAgregar          = findViewById<Button>(R.id.botonAgregarTarea)
 
+        setearBotones()
         setearDatos()
-
-        if (this.intent.extras != null) {
-            setExtras(this.intent.extras!!)
-        }
-
-
     }
 
     private fun setearDatos(): Unit {
@@ -78,17 +67,6 @@ class Edit_Task_Activity : AppCompatActivity() {
             spinner.adapter = adapter
         }
 
-        val timestamp = org.threeten.bp.LocalDate.now()
-
-        seleccionadorAnio.maxValue = 2050
-        seleccionadorAnio.minValue = timestamp.year
-
-        seleccionadorDia.minValue = 1
-        seleccionadorDia.maxValue = 31
-
-        seleccionadorMes.minValue = 1
-        seleccionadorMes.maxValue = 12
-
     }
 
     private fun setearBotones(): Unit {
@@ -99,27 +77,6 @@ class Edit_Task_Activity : AppCompatActivity() {
             this.startActivity(intent)
         }
 
-    }
-
-    private fun setExtras(extras: Bundle): Unit {
-
-        val titulo = extras.getString("titulo") ?: "TAREA SIN TITULO"
-        val descripcion = extras.getString("descripcion") ?: "TAREA SIN DESCRIPCION"
-
-        val fecha = getFecha(extras.getString("fecha") ?: "01/01/2000")
-
-        textoTitulo.setText(titulo)
-        textoDescripcion.setText(descripcion)
-
-        seleccionadorDia.value = fecha.dia
-        seleccionadorMes.value = fecha.mes
-        seleccionadorAnio.value = fecha.anio
-
-    }
-
-    private fun getFecha(fecha: String): fechas {
-        val values = fecha.split("/")
-        return fechas(values[0].toInt(), values[1].toInt(), values[2].toInt())
     }
 
 }

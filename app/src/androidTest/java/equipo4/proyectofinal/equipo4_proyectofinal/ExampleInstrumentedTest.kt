@@ -1,4 +1,4 @@
-package Equipo4.proyectofinal.equipo4_proyectofinal
+package equipo4.proyectofinal.equipo4_proyectofinal
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
