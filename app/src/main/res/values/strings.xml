@@ -52,6 +52,9 @@
 
 <!--    configuracion-->
     <string name="showTasksTittle">Mostrar tareas por:</string>
+    <string name="showFinishedTasks">Mostrar tareas terminadas:</string>
+
+
 
 
 <!--    Estadisticas-->
