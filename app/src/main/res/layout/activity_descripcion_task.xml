@@ -21,7 +21,7 @@
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="50dp"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:text="@string/eliminarButton"
             android:textSize="20sp"
             android:layout_marginRight="@dimen/horizontalMargin"
@@ -30,7 +30,7 @@
         <Button
             android:id="@+id/updateButton"
             android:layout_width="50dp"
-            android:layout_height="45dp"
+            android:layout_height="60dp"
             android:text="@string/actualizarButton"
             android:textSize="20sp"
             android:layout_marginRight="@dimen/horizontalMargin"
@@ -52,94 +52,156 @@
 
     </LinearLayout>
 
-    <!--Body of the activity -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:text="@string/titleTask"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        />
-
-    <TextView
-        android:id="@+id/tituloTask"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:text="@string/descriptionTask"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        />
-
+    <!--Body-->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/horizontalMargin"
         android:layout_marginRight="@dimen/horizontalMargin"
         >
 
-        <TextView
-            android:id="@+id/descripcionTask"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/titleTask"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/marginTopComponents"
+                />
+
+            <TextView
+                android:id="@+id/tituloTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/prioridadTask"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/marginTopComponents"
+                />
+
+            <TextView
+                android:id="@+id/prioridadTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/descriptionTask"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/marginTopComponents"
+                />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                >
+
+                <TextView
+                    android:id="@+id/descripcionTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+            </ScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fechaTask"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/marginTopComponents"
+                />
+
+            <TextView
+                android:id="@+id/fechaTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/categoriaTask"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/marginTopComponents"
+                />
+
+            <TextView
+                android:id="@+id/categoriaTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Estado"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:layout_marginTop="@dimen/marginTopComponents"
+                />
+
+            <TextView
+                android:id="@+id/estadoTerminadoTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                />
+
+            <Button
+                android:id="@+id/terminarTaskButton"
+                android:layout_width="237dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/round_button"
+                android:text="@string/terminarTareaButton"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textInputSize"
+                />
+        </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:text="@string/fechaTask"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        />
-
-    <TextView
-        android:id="@+id/fechaTask"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:text=""
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_marginBottom="120dp"
-        />
-
-    <Button
-        android:id="@+id/terminarTaskButton"
-        android:layout_width="237dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/round_button"
-        android:text="@string/terminarTareaButton"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textInputSize"
-        />
 
 
 </LinearLayout>

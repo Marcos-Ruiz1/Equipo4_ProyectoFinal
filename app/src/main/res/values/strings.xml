@@ -12,6 +12,8 @@
     <string name="titleTask">Nombre</string>
     <string name="descriptionTask">Descripción</string>
     <string name="fechaTask">Fecha</string>
+    <string name="prioridadTask">Prioridad</string>
+    <string name="categoriaTask">Categoria</string>
     <string name="terminarButton"> 🚩 Terminar</string>
     <string name="agregarButton">➕</string>
     <string name="estadisticasButton">📈</string>

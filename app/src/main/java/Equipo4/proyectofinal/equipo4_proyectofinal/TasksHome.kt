@@ -72,13 +72,14 @@ class TasksHome : AppCompatActivity() {
     //Método que instancia objetos Task, que luego se mostrarán en pantalla con el GridView
     fun fillTasks(){
 
-        tasks.add(Task("realizar informes", "tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe", "10/06/2024"))
-        tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final del curso a los profesores y compañeros", "15/07/2024"))
-        tasks.add(Task("Reunión con el cliente", "Reunirse con el cliente para discutir los requisitos y el progreso del proyecto", "20/07/2024"))
-        tasks.add(Task("Investigación de mercado", "Realizar una investigación de mercado para entender las necesidades del público objetivo", "25/07/2024"))
-        tasks.add(Task("Desarrollo de la app", "Implementar las funcionalidades principales de la aplicación móvil y realizar pruebas", "30/07/2024"))
-        tasks.add(Task("Documentación del código", "Escribir la documentación detallada del código fuente y las funcionalidades implementadas", "05/08/2024"))
-        tasks.add(Task("Lanzamiento del producto", "Preparar y lanzar el producto al mercado, asegurando que todas las funcionalidades estén operativas", "10/08/2024"))
+        tasks.add(Task("realizar informes", "tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe", "10/06/2024", "Educación", 10, false))
+        tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final del curso a los profesores y compañeros", "15/07/2024", "Escuela", 9, false))
+        tasks.add(Task("Reunión con el cliente", "Reunirse con el cliente para discutir los requisitos y el progreso del proyecto", "20/07/2024", "Trabajo", 8, false))
+        tasks.add(Task("Investigación de mercado", "Realizar una investigación de mercado para entender las necesidades del público objetivo", "25/07/2024", "Trabajo", 7, false))
+        tasks.add(Task("Desarrollo de la app", "Implementar las funcionalidades principales de la aplicación móvil y realizar pruebas", "30/07/2024", "Tecnología", 9, false))
+        tasks.add(Task("Documentación del código", "Escribir la documentación detallada del código fuente y las funcionalidades implementadas", "05/08/2024", "Tecnología", 8, false))
+        tasks.add(Task("Lanzamiento del producto", "Preparar y lanzar el producto al mercado, asegurando que todas las funcionalidades estén operativas", "10/08/2024", "Marketing", 10, false))
+
 
     }
 
@@ -120,10 +121,14 @@ class TasksHome : AppCompatActivity() {
             var descripcionTask: TextView = vista.findViewById(R.id.descripcionTaskTextView)
             var fechaTask: TextView = vista.findViewById(R.id.fechaTaskTextView)
             var terminarTurno: Button = vista.findViewById(R.id.terminarButton)
+            var prioridadTask: TextView = vista.findViewById(R.id.prioridadTaskTextView)
+            var categoriaTask: TextView = vista.findViewById(R.id.categoriaTaskTextView)
 
             tituloTask.setText(task.titulo)
             descripcionTask.setText(task.descripcion)
             fechaTask.setText(task.fecha)
+            prioridadTask.setText(task.prioridad.toString())
+            categoriaTask.setText(task.categoria)
 
             terminarTurno.setOnClickListener {
 
@@ -131,6 +136,9 @@ class TasksHome : AppCompatActivity() {
                 intent.putExtra("titulo", task.titulo)
                 intent.putExtra("descripcion", task.descripcion)
                 intent.putExtra("fecha", task.fecha)
+                intent.putExtra("categoria", task.categoria)
+                intent.putExtra("prioridad", task.prioridad)
+                intent.putExtra("terminado", task.terminado)
                 contexto?.startActivity(intent)
             }
 
