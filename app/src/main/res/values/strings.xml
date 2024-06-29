@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Evangelion 3.0</string>
     <string name="correoInput">Correo Eléctronico</string>
-    <string name="passwordInput">Password</string>
+    <string name="passwordInput">Contraseña</string>
     <string name="forgottenPassword">Olvidé mi contraseña</string>
     <string name="signUp">Registrarse</string>
     <string name="logIn">Iniciar sesión</string>

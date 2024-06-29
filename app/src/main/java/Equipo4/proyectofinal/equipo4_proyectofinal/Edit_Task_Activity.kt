@@ -47,6 +47,13 @@ class Edit_Task_Activity : AppCompatActivity() {
             insets
         }
 
+        //Boton actualizar tarea
+        val actualizarButton: Button = findViewById(R.id.botonAgregarTarea)
+        actualizarButton.setOnClickListener {
+            val intent: Intent = Intent(this, TasksHome::class.java)
+            this.startActivity(intent)
+        }
+
         textoTitulo           = findViewById<EditText>(R.id.tituloTarea)
         textoDescripcion      = findViewById<EditText>(R.id.descripcionTarea)
         spinner               = findViewById<Spinner>(R.id.prioritySpinner)

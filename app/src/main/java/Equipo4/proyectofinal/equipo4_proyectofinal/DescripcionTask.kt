@@ -69,6 +69,8 @@ class DescripcionTask : AppCompatActivity() {
 
         terminarButton.setOnClickListener {
 
+            val intent: Intent = Intent(this, TasksHome::class.java)
+            this.startActivity(intent)
         }
     }
 
@@ -83,6 +85,8 @@ class DescripcionTask : AppCompatActivity() {
         builder.setPositiveButton("Sí") { dialog, which ->
 
             Toast.makeText(applicationContext, "Tarea eliminada", Toast.LENGTH_SHORT).show()
+            val intent: Intent = Intent(this, TasksHome::class.java)
+            this.startActivity(intent)
 
         }
 

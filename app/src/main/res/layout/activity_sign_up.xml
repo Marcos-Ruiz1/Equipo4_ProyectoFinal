@@ -46,22 +46,8 @@
         android:textSize="@dimen/textInputSize"
         android:inputType="textPassword" />
 
-    <TextView
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/forgottenPassword"
-        android:textColor= "@color/purpleText"
-        android:textSize="@dimen/textInputSize"
-        android:textAlignment="center"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"/>
-
     <Button
-        android:id="@+id/logInButton"
+        android:id="@+id/signUpButton"
         android:layout_width="237dp"
         android:layout_height="48dp"
         android:layout_marginTop="@dimen/marginTopComponents"
