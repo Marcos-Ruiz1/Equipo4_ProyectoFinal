@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="?attr/actionBarSize"
+    tools:context=".ui.home.HomeFragment">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blueHeader"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/tasks"
+            android:textSize="@dimen/textHeaderSize"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginRight="10dp"
+            />
+
+        <Button
+            android:id="@+id/configuracionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configuracionButton"
+            android:textSize="20sp"
+            android:layout_marginRight="@dimen/horizontalMargin"
+            android:background="@android:color/transparent"
+            />
+
+        <Button
+            android:id="@+id/btnAgregarTarea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agregarButton"
+            android:textSize="20sp"
+            android:layout_marginRight="@dimen/horizontalMargin"
+            android:background="@android:color/transparent"
+            />
+
+    </LinearLayout>
+
+    <!-- GridView -->
+    <GridView
+        android:id="@+id/tasksGridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="1"
+        android:verticalSpacing="10dp"
+        />
+
+</LinearLayout>

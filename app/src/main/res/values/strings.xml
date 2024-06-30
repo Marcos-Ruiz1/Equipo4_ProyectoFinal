@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Evangelion 3.0</string>
+    <string name="title_home">  </string>
+    <string name="title_dashboard">  </string>
+    <string name="title_notifications">  </string> <!-- a borrar -->
+
     <string name="correoInput">Correo Eléctronico</string>
     <string name="passwordInput">Contraseña</string>
     <string name="forgottenPassword">Olvidé mi contraseña</string>
@@ -28,6 +32,7 @@
 
     <string name="upArrow">^</string>
     <!--    descripcion de las tareas-->
+    <string name="titutloActualizarTarea">Actualizar tarea</string>
     <string name="taskTitle">Titulo de la tarea</string>
     <string name="taskDescription">Descripción</string>
     <string name="categories">Categoría</string>
@@ -46,19 +51,17 @@
         <item>10</item>
     </string-array>
 
-<!--    fin edicion de las tareas-->
+    <!--    fin edicion de las tareas-->
 
 
-
-<!--    configuracion-->
+    <!--    configuracion-->
     <string name="showTasksTittle">Mostrar tareas por:</string>
     <string name="showFinishedTasks">Mostrar tareas terminadas:</string>
 
 
-
-
-<!--    Estadisticas-->
+    <!--    Estadisticas-->
     <string name="YearStatsTittle">Tareas terminadas al año:</string>
     <string name="MonthStatsTittle">Tareas terminadas al mes:</string>
     <string name="WeekStatsTittle">Tareas terminadas a la semana:</string>
+
 </resources>

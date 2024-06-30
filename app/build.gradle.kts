@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "Equipo4.proyectofinal.equipo4_proyectofinal"
+    namespace = "rodriguez.rosa.evangelion30"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "Equipo4.proyectofinal.equipo4_proyectofinal"
+        applicationId = "rodriguez.rosa.evangelion30"
         minSdk = 21
         targetSdk = 34
         versionCode = 1
@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -40,8 +43,12 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -50,6 +57,5 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0")
     implementation("com.github.loper7:DateTimePicker:0.6.3")
     implementation("com.jakewharton.threetenabp:threetenabp:1.4.7")
-
 
 }

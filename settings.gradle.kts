@@ -17,10 +17,9 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = uri("https://jitpack.io") }
-
     }
 }
 
-rootProject.name = "Equipo4_ProyectoFinal"
+rootProject.name = "Evangelion 3.0"
 include(":app")
  

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="?attr/actionBarSize"
+    tools:context=".ui.dashboard.DashboardFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tituloEstadisticas"
+        android:background="@drawable/title_border"
+        android:gravity="center"
+        android:fontFamily="sans-serif-light"
+        android:paddingVertical="10dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/textHeaderSize"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/YearStatsTittle"
+                android:gravity="start"
+                android:fontFamily="sans-serif-light"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="16sp"
+                />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/YearChart"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/MonthStatsTittle"
+                android:gravity="start"
+                android:fontFamily="sans-serif-light"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="16sp"
+                />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/MonthChart"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/WeekStatsTittle"
+                android:gravity="start"
+                android:fontFamily="sans-serif-light"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="16sp"
+                />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/WeekChart"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

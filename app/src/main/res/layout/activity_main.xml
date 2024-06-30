@@ -1,79 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    >
 
-    <ImageView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+    <fragment
+        android:id="@+id/nav_host_fragment_activity_main"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/god"/>
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/mobile_navigation" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:ems="10"
-        android:hint="@string/correoInput"
-        android:textSize="@dimen/textInputSize"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/horizontalMargin"
-        android:layout_marginRight="@dimen/horizontalMargin"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:ems="15"
-        android:hint="@string/passwordInput"
-        android:textSize="@dimen/textInputSize"
-        android:inputType="textPassword" />
-
-    <Button
-        android:id="@+id/signUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:text="@string/signUp"
-        android:textColor= "@color/purpleText"
-        android:textSize="@dimen/textInputSize"
-        android:textAlignment="center"
-        android:clickable="true"
-        android:background="@android:color/transparent"
-        android:focusable="true"/>
-    
-    <Button
-        android:id="@+id/logInButton"
-        android:layout_width="237dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/round_button"
-        android:text="@string/logIn"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textInputSize"
-        />
-
-    <Button
-        android:id="@+id/forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/marginTopComponents"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/forgottenPassword"
-        android:textColor= "@color/purpleText"
-        android:textSize="@dimen/textInputSize"
-        android:textAlignment="center"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="@android:color/transparent"/>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

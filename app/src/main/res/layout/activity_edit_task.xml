@@ -12,13 +12,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tituloEditarTarea"
+        android:text="@string/titutloAgregarTarea"
         android:background="@drawable/title_border"
         android:gravity="center"
         android:fontFamily="sans-serif-light"
         android:paddingVertical="10dp"
         android:textColor="@color/white"
         android:textSize="@dimen/textHeaderSize"
+        android:id="@+id/tituloActividad"
         />
 
     <ScrollView
