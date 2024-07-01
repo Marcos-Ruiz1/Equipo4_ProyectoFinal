@@ -3,5 +3,6 @@ package rodriguez.rosa.evangelion30.util
 enum class Topics {
     LOGIN,
     REGISTRO,
-    LOGOUT
+    LOGOUT,
+    RESET_PASSWORD
 }

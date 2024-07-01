@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import rodriguez.rosa.evangelion30.Controladores.Controlador
+import rodriguez.rosa.evangelion30.Controladores.ControladorLogIn
+import rodriguez.rosa.evangelion30.Controladores.ControladorRegistrarUsuario
+import rodriguez.rosa.evangelion30.Modelo.ModeloLogIn
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 
@@ -38,14 +41,28 @@ class LoginActivity : AppCompatActivity(), Subscriptor {
 
         logIn.setOnClickListener {
 
+            //subscribir la vista al modelo
+            ModeloLogIn.getInstance().addSubscriber(this)
+
             val email = editTextEmail.text.toString()
             val password = editTextPassword.text.toString()
 
-            if(email.isBlank() || password.isBlank()) {
+            if (isAnyFieldBlank(email, password)) {
+                Toast.makeText(
+                    this, "Favor de llenar los campos de manera correcta",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+            if (isInvalidEmail(email)) {
+                Toast.makeText(
+                    this, "Favor de ingresar un correo válido",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
 
-            Controlador.iniciarSesion(
+            ControladorLogIn.getInstance().iniciarSesion(
                 editTextEmail.text.toString(),
                 editTextPassword.text.toString()
             )
@@ -58,10 +75,24 @@ class LoginActivity : AppCompatActivity(), Subscriptor {
 
     }
 
+    private fun isAnyFieldBlank(email: String, password: String): Boolean {
+        return email.isBlank() || password.isBlank()
+    }
+
+    private fun isInvalidEmail(email: String): Boolean {
+        val emailPattern = Regex("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$")
+
+        return !emailPattern.matches(email)
+    }
+
     override fun notificar(datos: NotificacionesUsuario) {
 
         if(datos == NotificacionesUsuario.LOGIN_CORRECTO) {
-
+            Toast.makeText(
+                this, "LogIn correcto", Toast.LENGTH_SHORT
+            ).show()
+            val intent: Intent = Intent(this, MainActivity::class.java)
+            this.startActivity(intent)
 
 
         } else if (datos == NotificacionesUsuario.LOGIN_INCORRECTO) {

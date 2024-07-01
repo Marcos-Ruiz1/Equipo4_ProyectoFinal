@@ -6,27 +6,42 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
+import rodriguez.rosa.evangelion30.util.SubscriptorProxy
 import rodriguez.rosa.evangelion30.util.Topics
 
 class UserDAO {
 
-    private var subscriptores: HashMap<String, ArrayList<Subscriptor>> = hashMapOf(
+    private var subscriptores: HashMap<String, ArrayList<SubscriptorProxy>> = hashMapOf(
         Topics.REGISTRO.toString() to ArrayList(),
         Topics.LOGIN.toString() to ArrayList(),
-        Topics.LOGOUT.toString() to ArrayList()
+        Topics.LOGOUT.toString() to ArrayList(),
+        Topics.RESET_PASSWORD.toString() to ArrayList()
     )
 
     companion object {
 
-        val instance: UserDAO = UserDAO()
+        private var instance: UserDAO? = null
 
-        fun addSubcriber(sub: Subscriptor, topic: Topics) {
 
-            if (!instance.subscriptores.containsKey(topic.toString())) {
-                throw RuntimeException("EL TOPIC NO EXISTE")
+        fun getInstances(): UserDAO {
+            if(instance == null){
+                instance = UserDAO()
             }
 
-            instance.subscriptores.get(topic.toString())!!.add(sub)
+            return instance!!
+        }
+
+
+    }
+
+    fun addSubcriber(sub: SubscriptorProxy, topic: Topics) {
+
+        if (!instance!!.subscriptores.containsKey(topic.toString())) {
+            throw RuntimeException("EL TOPIC NO EXISTE")
+        }
+
+        if(!instance!!.subscriptores.get(topic.toString())!!.contains(sub)){
+            instance!!.subscriptores.get(topic.toString())!!.add(sub)
         }
 
     }
@@ -59,6 +74,20 @@ class UserDAO {
 
     }
 
+    fun resetPassword(email: String) {
+        val TAG: String = "reset password"
+        val auth = Firebase.auth
+
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener{ task ->
+
+                notificar(NotificacionesUsuario.RESET_PASSWORD_CORRECTO, Topics.RESET_PASSWORD)
+            }.addOnFailureListener { e ->
+                Log.e(TAG, e.stackTraceToString())
+                notificar(NotificacionesUsuario.RESET_PASSWORD_INCORRECTO, Topics.RESET_PASSWORD)
+            }
+    }
+
     fun logOutUser() {
         Firebase.auth.signOut()
         notificar(NotificacionesUsuario.LOG_OUT, Topics.LOGOUT)
@@ -66,8 +95,7 @@ class UserDAO {
 
     private fun notificar(data: NotificacionesUsuario, topic: Topics): Unit {
         for (sub in this.subscriptores.get(topic.toString())!!) {
-            sub.notificar(data)
-        }
+            sub.notificar(data, topic)        }
     }
 
 }

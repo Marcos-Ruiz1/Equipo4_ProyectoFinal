@@ -10,8 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import rodriguez.rosa.evangelion30.Controladores.Controlador
+import rodriguez.rosa.evangelion30.Controladores.ControladorRegistrarUsuario
 import rodriguez.rosa.evangelion30.DAO.UserDAO
+import rodriguez.rosa.evangelion30.Modelo.ModeloRegistarUsuario
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 import rodriguez.rosa.evangelion30.util.Topics
@@ -32,9 +33,13 @@ class SignUp : AppCompatActivity(), Subscriptor {
         val editTextEmail: EditText    = findViewById(R.id.emailRegistro)
         val editTextPassword: EditText = findViewById(R.id.passwordRegistro)
 
-        UserDAO.addSubcriber(this, Topics.REGISTRO)
+
 
         signUpButton.setOnClickListener {
+
+            //Subscribir la vista al modelo
+            ModeloRegistarUsuario.getInstance().addSubscriber(this)
+
             val password = editTextPassword.text.toString()
             val email = editTextEmail.text.toString()
 
@@ -45,8 +50,15 @@ class SignUp : AppCompatActivity(), Subscriptor {
                 ).show()
                 return@setOnClickListener
             }
+            if (isInvalidEmail(email)) {
+                Toast.makeText(
+                    this, "Favor de ingresar un correo válido",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
 
-            Controlador.crearUsuario(email, password)
+            ControladorRegistrarUsuario.getInstance().crearUsuario(email, password)
         }
 
     }
@@ -55,12 +67,18 @@ class SignUp : AppCompatActivity(), Subscriptor {
         return email.isBlank() || password.isBlank()
     }
 
+    private fun isInvalidEmail(email: String): Boolean {
+        val emailPattern = Regex("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$")
+
+        return !emailPattern.matches(email)
+    }
+
     override fun notificar(data: NotificacionesUsuario) {
             if (data == NotificacionesUsuario.REGISTRO_CORRECTO) {
                 Toast.makeText(
                     this, "Registro correcto", Toast.LENGTH_SHORT
                 ).show()
-                val intent: Intent = Intent(this, MainActivity::class.java)
+                val intent: Intent = Intent(this, LoginActivity::class.java)
                 this.startActivity(intent)
             } else if (data == NotificacionesUsuario.REGISTRO_INCORRECTO) {
                 Toast.makeText(
