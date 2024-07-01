@@ -39,8 +39,5 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-        <activity
-            android:name=".Add_Task_Activity"
-            android:exported="false" />
     </application>
 </manifest>

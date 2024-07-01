@@ -10,17 +10,16 @@
     tools:context=".Edit_Task_Activity">
 
     <TextView
-        android:id="@+id/tituloActividad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tituloEditarTarea"
+        android:text="@string/titutloAgregarTarea"
         android:background="@drawable/title_border"
         android:gravity="center"
         android:fontFamily="sans-serif-light"
         android:paddingVertical="10dp"
         android:textColor="@color/white"
         android:textSize="@dimen/textHeaderSize"
-        android:textStyle="bold"
+        android:id="@+id/tituloActividad"
         />
 
     <ScrollView
@@ -32,16 +31,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:text="@string/taskTitle"
-                android:gravity="center"
-                android:textSize="@dimen/subtitleTextSize"
-                android:textColor="@color/black"
-                />
 
             <EditText
                 android:id="@+id/tituloTarea"
@@ -55,20 +44,11 @@
                 android:layout_marginHorizontal="20dp"
                 />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/taskDescription"
-                android:gravity="center"
-                android:textSize="@dimen/subtitleTextSize"
-                android:textColor="@color/black"
-                android:layout_marginTop="50dp"
-                />
-
             <EditText
                 android:id="@+id/descripcionTarea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
                 android:inputType="textMultiLine"
                 android:textColor="@color/black"
                 android:paddingVertical="24dp"
@@ -78,18 +58,9 @@
                 android:layout_marginHorizontal="20dp"
                 />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/prioridadTask"
-                android:gravity="center"
-                android:textSize="@dimen/subtitleTextSize"
-                android:textColor="@color/black"
-                android:layout_marginTop="50dp"
-                />
-
             <Spinner
                 android:id="@+id/prioritySpinner"
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_marginHorizontal="20dp"
                 android:layout_height="80dp" />
@@ -99,9 +70,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/categories"
                 android:gravity="center"
-                android:textSize="@dimen/subtitleTextSize"
+                android:textSize="@dimen/textHeaderSize"
                 android:textColor="@color/black"
-                android:layout_marginTop="50dp"
                 />
 
             <LinearLayout
@@ -122,8 +92,8 @@
 
                 <Button
                     android:id="@+id/botonAgregarCategoria"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/round_button"
                     android:text="@string/agregarButton" />
 
@@ -142,13 +112,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="@string/deadline"
-                android:textSize="@dimen/subtitleTextSize"
+                android:textSize="30sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="50dp"
                 />
 
             <View
@@ -223,7 +191,6 @@
                 android:layout_height="wrap_content"
                 android:columnCount="2"
                 android:layout_marginTop="40dp"
-                android:layout_marginHorizontal="20dp"
                 >
 
                 <TextView
@@ -231,8 +198,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/withDeadline"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/subtitleTextSize"
-                    android:layout_marginRight="5dp"
+                    android:textSize="35sp"
                     />
 
                 <CheckBox
@@ -249,7 +215,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tituloEditarTarea"
+                android:text="@string/titutloAgregarTarea"
                 android:background="@drawable/round_button"
                 android:paddingHorizontal="60dp"
                 android:paddingVertical="20dp"

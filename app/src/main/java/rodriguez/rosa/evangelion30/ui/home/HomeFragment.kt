@@ -12,7 +12,6 @@ import android.widget.GridView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import rodriguez.rosa.evangelion30.Add_Task_Activity
 import rodriguez.rosa.evangelion30.Configuracion
 import rodriguez.rosa.evangelion30.DescriptionTask
 import rodriguez.rosa.evangelion30.Edit_Task_Activity
@@ -55,7 +54,7 @@ class HomeFragment : Fragment() {
         val agregarButton = root.findViewById<Button>(R.id.btnAgregarTarea)
 
         agregarButton.setOnClickListener {
-            val intent: Intent = Intent(root.context, Add_Task_Activity::class.java)
+            val intent: Intent = Intent(root.context, Edit_Task_Activity::class.java)
             root.context.startActivity(intent)
         }
 
