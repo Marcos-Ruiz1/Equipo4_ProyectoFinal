@@ -37,6 +37,14 @@ class LoginActivity : AppCompatActivity(), Subscriptor {
         }
 
         logIn.setOnClickListener {
+
+            val email = editTextEmail.text.toString()
+            val password = editTextPassword.text.toString()
+
+            if(email.isBlank() || password.isBlank()) {
+                return@setOnClickListener
+            }
+
             Controlador.iniciarSesion(
                 editTextEmail.text.toString(),
                 editTextPassword.text.toString()

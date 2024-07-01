@@ -36,6 +36,7 @@
                 android:id="@+id/tituloTarea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
                 android:hint="@string/taskTitle"
                 android:textSize="@dimen/textInputSize"
                 android:paddingVertical="24dp"

@@ -4,5 +4,6 @@ enum class NotificacionesUsuario {
     LOGIN_CORRECTO,
     LOGIN_INCORRECTO,
     REGISTRO_CORRECTO,
-    REGISTRO_INCORRECTO
+    REGISTRO_INCORRECTO,
+    LOG_OUT
 }
