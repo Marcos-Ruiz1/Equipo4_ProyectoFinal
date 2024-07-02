@@ -2,6 +2,7 @@ package rodriguez.rosa.evangelion30
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
@@ -9,13 +10,22 @@ import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
+import rodriguez.rosa.evangelion30.Controladores.ControladorAddTask
+import rodriguez.rosa.evangelion30.Controladores.ControladorLogIn
+import rodriguez.rosa.evangelion30.DAO.UserDAO
+import rodriguez.rosa.evangelion30.Modelo.ModeloAddTask
+import rodriguez.rosa.evangelion30.Modelo.ModeloLogIn
+import rodriguez.rosa.evangelion30.dominio.Task
+import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
+import rodriguez.rosa.evangelion30.util.Subscriptor
 
-class Add_Task_Activity : AppCompatActivity() {
+class Add_Task_Activity : AppCompatActivity(), Subscriptor{
 
     data class fechas(val dia: Int, val mes: Int, val anio: Int)
 
@@ -30,7 +40,7 @@ class Add_Task_Activity : AppCompatActivity() {
     private lateinit var seleccionadorAnio: com.loper7.date_time_picker.number_picker.NumberPicker
     private lateinit var seleccionadorMes: com.loper7.date_time_picker.number_picker.NumberPicker
     private lateinit var seleccionadorDia: com.loper7.date_time_picker.number_picker.NumberPicker
-    private lateinit var checkBoxSinFehca: CheckBox
+    private lateinit var checkBoxSinFecha: CheckBox
     private lateinit var botonAgregar: Button
 //    fin de los atributos de la pantalla
 
@@ -57,7 +67,7 @@ class Add_Task_Activity : AppCompatActivity() {
         seleccionadorAnio     = findViewById(R.id.np_datetime_year)
         seleccionadorMes      = findViewById(R.id.np_datetime_month)
         seleccionadorDia      = findViewById(R.id.np_datetime_day)
-        checkBoxSinFehca      = findViewById<CheckBox>(R.id.checkboxDeadline)
+        checkBoxSinFecha      = findViewById<CheckBox>(R.id.checkboxDeadline)
         tituloActividad       = findViewById<TextView>(R.id.tituloActividad)
 
         //Modificación del texto del boton y el titulo de la actividad
@@ -67,9 +77,55 @@ class Add_Task_Activity : AppCompatActivity() {
         setearDatos()
         setearBotones()
 
+
+        botonAgregar.setOnClickListener {
+
+
+            Log.e(null,"WORKING?")
+
+            //subscribir la vista al modelo
+            ModeloAddTask.getInstance().addSubscriber(this)
+
+            val title = textoTitulo.text.toString()
+            val description = textoDescripcion.text.toString()
+            val category = textoCategoria.text.toString()
+            val priority = (spinner.selectedItem as String).toInt()
+
+            val day = seleccionadorDia.value
+            val month = seleccionadorMes.value
+            val year = seleccionadorAnio.value
+
+            val date = "%02d/%02d/%04d".format(day, month, year)
+
+            val hasLimitDate = !checkBoxSinFecha.isChecked
+
+
+
+
+
+            if (isAnyFieldBlank(title, description, category, priority)) {
+                Toast.makeText(
+                    this, "Favor de llenar los campos de manera correcta",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
+
+            ControladorAddTask.getInstance().addTask(
+                title, description, category, priority
+            )
+        }
+
+
         if (this.intent.extras != null) {
             setExtras(this.intent.extras!!)
         }
+
+    }
+
+    private fun isAnyFieldBlank(title: String, description: String, category: String, priority: Int ): Boolean {
+        return title.isBlank() || description.isBlank()|| category.isBlank()|| priority.toString().isBlank()
 
     }
 
@@ -129,5 +185,10 @@ class Add_Task_Activity : AppCompatActivity() {
         val values = fecha.split("/")
         return fechas(values[0].toInt(), values[1].toInt(), values[2].toInt())
     }
+
+    override fun notificar(data: NotificacionesUsuario) {
+        TODO("Not yet implemented")
+    }
+
 
 }

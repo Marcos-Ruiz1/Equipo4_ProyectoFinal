@@ -31,6 +31,9 @@
             android:name=".Edit_Task_Activity"
             android:exported="false" />
         <activity
+            android:name=".Add_Task_Activity"
+            android:exported="false" />
+        <activity
             android:name=".Configuracion"
             android:exported="false" />
         <activity

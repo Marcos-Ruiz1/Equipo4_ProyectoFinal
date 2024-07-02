@@ -1,5 +1,6 @@
 package rodriguez.rosa.evangelion30.ui.home
 
+import AuthManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +13,11 @@ import android.widget.GridView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import rodriguez.rosa.evangelion30.Add_Task_Activity
 import rodriguez.rosa.evangelion30.Configuracion
+import rodriguez.rosa.evangelion30.DAO.UserDAO
 import rodriguez.rosa.evangelion30.DescriptionTask
 import rodriguez.rosa.evangelion30.Edit_Task_Activity
 import rodriguez.rosa.evangelion30.R
@@ -30,7 +35,17 @@ class HomeFragment : Fragment() {
 //    del equipo
 
     private var adaptador: AdaptadorTasks? = null
+
+    //Instances the authManager
+    private val authManager = AuthManager
+    //Gets the current user's ID
+    val userId = authManager.currentUserId
+
     var tasks  = ArrayList<Task>()
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,9 +69,12 @@ class HomeFragment : Fragment() {
         val agregarButton = root.findViewById<Button>(R.id.btnAgregarTarea)
 
         agregarButton.setOnClickListener {
-            val intent: Intent = Intent(root.context, Edit_Task_Activity::class.java)
+            val intent: Intent = Intent(root.context, Add_Task_Activity::class.java)
             root.context.startActivity(intent)
         }
+
+        //Gets the logged user's ID
+
 
         //cargar objetos Task
         fillTasks()
@@ -77,7 +95,6 @@ class HomeFragment : Fragment() {
 
     //Método que instancia objetos Task, que luego se mostrarán en pantalla con el GridView
     fun fillTasks(){
-
         tasks.add(Task("realizar informes", "tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefe tengo que hacer los informes que me pide el jefetengo que hacer los informes que me pide el jefe", "10/06/2024", "Educación", 10, false))
         tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final del curso a los profesores y compañeros", "15/07/2024", "Escuela", 9, false))
         tasks.add(Task("Reunión con el cliente", "Reunirse con el cliente para discutir los requisitos y el progreso del proyecto", "20/07/2024", "Trabajo", 8, true))
@@ -85,9 +102,9 @@ class HomeFragment : Fragment() {
         tasks.add(Task("Desarrollo de la app", "Implementar las funcionalidades principales de la aplicación móvil y realizar pruebas", "30/07/2024", "Tecnología", 9, false))
         tasks.add(Task("Documentación del código", "Escribir la documentación detallada del código fuente y las funcionalidades implementadas", "05/08/2024", "Tecnología", 8, true))
         tasks.add(Task("Lanzamiento del producto", "Preparar y lanzar el producto al mercado, asegurando que todas las funcionalidades estén operativas", "10/08/2024", "Marketing", 10, false))
-
-
     }
+
+
 
     private class AdaptadorTasks: BaseAdapter {
 
@@ -155,6 +172,9 @@ class HomeFragment : Fragment() {
             return vista
 
         }
+
+
+
 
     }
 

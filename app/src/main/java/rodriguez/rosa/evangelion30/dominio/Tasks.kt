@@ -15,5 +15,4 @@ class Tasks {
     fun eliminarTarea(task: Task) {
          tareas.remove(task)
     }
-
 }

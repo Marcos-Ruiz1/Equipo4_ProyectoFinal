@@ -4,5 +4,6 @@ enum class Topics {
     LOGIN,
     REGISTRO,
     LOGOUT,
-    RESET_PASSWORD
+    RESET_PASSWORD,
+    ADD_TASK
 }

@@ -14,7 +14,8 @@ class ProxyUsers : SubscriptorProxy {
         Topics.REGISTRO.toString() to ArrayList(),
         Topics.LOGIN.toString() to ArrayList(),
         Topics.LOGOUT.toString() to ArrayList(),
-        Topics.RESET_PASSWORD.toString() to ArrayList()
+        Topics.RESET_PASSWORD.toString() to ArrayList(),
+        Topics.ADD_TASK.toString() to ArrayList()
     )
 
     companion object {
@@ -60,10 +61,14 @@ class ProxyUsers : SubscriptorProxy {
         UserDAO.getInstances().logOutUser()
     }
 
+    fun addTask(title: String, description: String, category: String, priority:Int){
+        UserDAO.getInstances().addSubcriber(this, Topics.ADD_TASK)
+        UserDAO.getInstances().addTask(title, description, category, priority)
+    }
+
+
     override fun notificar(data: NotificacionesUsuario, topic: Topics) {
         for (sub in this.subscriptores.get(topic.toString())!!) {
             sub.notificar(data)        }
     }
-
-
 }

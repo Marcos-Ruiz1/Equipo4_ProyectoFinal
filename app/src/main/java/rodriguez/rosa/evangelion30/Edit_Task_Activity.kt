@@ -99,7 +99,6 @@ class Edit_Task_Activity : AppCompatActivity() {
             val intent: Intent = Intent(this, MainActivity::class.java)
             this.startActivity(intent)
         }
-
     }
 
     private fun setExtras(extras: Bundle): Unit {

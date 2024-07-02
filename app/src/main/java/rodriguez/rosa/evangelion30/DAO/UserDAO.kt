@@ -1,13 +1,19 @@
 package rodriguez.rosa.evangelion30.DAO
 
+import AuthManager
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.Firebase
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.auth
+import com.google.firebase.database.FirebaseDatabase
+import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 import rodriguez.rosa.evangelion30.util.SubscriptorProxy
 import rodriguez.rosa.evangelion30.util.Topics
+import org.threeten.bp.LocalDate
+import com.jakewharton.threetenabp.AndroidThreeTen
 
 class UserDAO {
 
@@ -97,5 +103,40 @@ class UserDAO {
         for (sub in this.subscriptores.get(topic.toString())!!) {
             sub.notificar(data, topic)        }
     }
+
+    fun addTask(title: String, description: String, category: String, priority: Int){
+        var userID: String? = AuthManager.currentUserId
+
+            val task = Task(
+                titulo = title,
+                descripcion = description,
+                fecha = LocalDate.now().toString(),  // Example date format
+                categoria = category,    // Example category
+                prioridad = priority,         // Example priority level
+                terminado = false      // Task is not yet completed
+            )
+
+        if (userID!=null){
+            val database = FirebaseDatabase.getInstance()
+            val tasksRef = database.getReference("User").child(userID).child("Tasks")
+
+            // Use push() to generate a unique key for the task
+            val newTaskRef = tasksRef.push()
+
+            // Set the value of the new task node
+            newTaskRef.setValue(task)  .addOnSuccessListener {
+                // Task added successfully
+                Log.d("FirebaseDatabase", "Task added successfully")
+            }
+                .addOnFailureListener { e ->
+                    // Handle any errors
+                    Log.e("FirebaseDatabase", "Error adding task", e)
+                }
+        } else {
+            Log.e("FirebaseDatabase", "User ID is null")
+        }
+
+    }
+
 
 }
