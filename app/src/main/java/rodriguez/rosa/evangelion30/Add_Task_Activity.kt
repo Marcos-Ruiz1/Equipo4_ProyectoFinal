@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.loper7.date_time_picker.number_picker.NumberPicker
 import rodriguez.rosa.evangelion30.Controladores.ControladorAddTask
 import rodriguez.rosa.evangelion30.Controladores.ControladorLogIn
 import rodriguez.rosa.evangelion30.DAO.UserDAO
@@ -117,11 +118,6 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
             )
         }
 
-
-        if (this.intent.extras != null) {
-            setExtras(this.intent.extras!!)
-        }
-
     }
 
     private fun isAnyFieldBlank(title: String, description: String, category: String, priority: Int ): Boolean {
@@ -145,11 +141,49 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         seleccionadorAnio.minValue = timestamp.year
 
         seleccionadorDia.minValue = 1
-        seleccionadorDia.maxValue = 31
+        seleccionadorDia.maxValue = timestamp.month.maxLength()
 
         seleccionadorMes.minValue = 1
         seleccionadorMes.maxValue = 12
 
+        seleccionadorMes.setOnValueChangedListener { picker, oldVal, newVal ->
+            updateDateFromMonth(picker, oldVal, newVal)
+        }
+
+        seleccionadorAnio.setOnValueChangedListener { picker, oldVal, newVal ->
+            updateDateFromYear(picker, oldVal, newVal)
+        }
+
+    }
+
+    private fun updateDateFromMonth(picker: NumberPicker, oldVal: Int, newVal: Int) {
+        var month: String = ""
+        if (newVal < 10) {
+            month = month.plus("0")
+        }
+        month = month.plus(newVal)
+        val fechaReferencia = org.threeten.bp.LocalDate.parse("${seleccionadorAnio.value}-${month}-01")
+        seleccionadorDia.maxValue = fechaReferencia.month.maxLength()
+        seleccionadorDia.minValue = 1
+    }
+
+    private fun updateDateFromYear(picker: NumberPicker, oldVal: Int, newVal: Int) {
+        var month: String = ""
+        if (seleccionadorMes.value < 10) {
+            month = month.plus("0")
+        }
+        month = month.plus(seleccionadorMes.value)
+        val fechaReferencia = org.threeten.bp.LocalDate.parse("${newVal}-${month}-01")
+
+//        por alguna razon toma todos los anios como leapYear asi q le tenemos que restar uno
+//        al mes de febrero
+        var monthValue = fechaReferencia.month.maxLength()
+        if (!fechaReferencia.isLeapYear && fechaReferencia.month.value == 2) {
+            monthValue -= 1
+        }
+
+        seleccionadorDia.maxValue = monthValue
+        seleccionadorDia.minValue = 1
     }
 
     private fun setearBotones(): Unit {
@@ -160,30 +194,6 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
             this.startActivity(intent)
         }
 
-    }
-
-    private fun setExtras(extras: Bundle): Unit {
-
-        val titulo = extras.getString("titulo") ?: "TAREA SIN TITULO"
-        val descripcion = extras.getString("descripcion") ?: "TAREA SIN DESCRIPCION"
-
-        val fecha = getFecha(extras.getString("fecha") ?: "01/01/2000")
-
-        textoTitulo.setText(titulo)
-        textoDescripcion.setText(descripcion)
-
-        seleccionadorDia.value = fecha.dia
-        seleccionadorMes.value = fecha.mes
-        seleccionadorAnio.value = fecha.anio
-
-        botonAgregar.text = resources.getText(R.string.tituloEditarTarea)
-        tituloActividad.text = resources.getText(R.string.tituloEditarTarea)
-
-    }
-
-    private fun getFecha(fecha: String): fechas {
-        val values = fecha.split("/")
-        return fechas(values[0].toInt(), values[1].toInt(), values[2].toInt())
     }
 
     override fun notificar(data: NotificacionesUsuario) {
