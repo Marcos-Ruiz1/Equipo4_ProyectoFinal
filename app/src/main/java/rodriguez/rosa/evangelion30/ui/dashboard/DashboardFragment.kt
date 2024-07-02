@@ -2,6 +2,7 @@ package rodriguez.rosa.evangelion30.ui.dashboard
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,10 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import rodriguez.rosa.evangelion30.R
 import rodriguez.rosa.evangelion30.databinding.FragmentDashboardBinding
 import rodriguez.rosa.evangelion30.dominio.Task
@@ -49,7 +54,7 @@ class DashboardFragment : Fragment() {
         monthChart = root.findViewById(R.id.MonthChart)
         weekChart = root.findViewById(R.id.WeekChart)
 
-        setupTasks()
+        fillTasks()
         setUpCharts()
 
 //        fin de la configuracion
@@ -57,23 +62,46 @@ class DashboardFragment : Fragment() {
         return root
     }
 
-    private fun setupTasks() {
-        tasks.add(Task("realizar informes", "tengo que hacer los informes que me pide el jefe...", "10/06/2024", "Educación", 10, true))
-        tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final...", "15/07/2024", "Escuela", 9, false))
-        tasks.add(Task("Reunión con el cliente", "Reunirse con el cliente para discutir...", "20/07/2024", "Trabajo", 8, true))
-        tasks.add(Task("Investigación de mercado", "Realizar una investigación de mercado...", "25/07/2024", "Trabajo", 7, false))
-        tasks.add(Task("Desarrollo de la app", "Implementar las funcionalidades principales...", "30/07/2024", "Tecnología", 9, false))
-        tasks.add(Task("Documentación del código", "Escribir la documentación detallada...", "05/08/2024", "Tecnología", 8, true))
-        tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final...", "15/07/2024", "Escuela", 9, false))
-        tasks.add(Task("Reunión con el cliente", "Reunirse con el cliente para discutir...", "20/07/2024", "Trabajo", 8, true))
-        tasks.add(Task("Investigación de mercado", "Realizar una investigación de mercado...", "25/07/2024", "Trabajo", 7, false))
-        tasks.add(Task("Desarrollo de la app", "Implementar las funcionalidades principales...", "30/07/2024", "Tecnología", 9, false))
-        tasks.add(Task("Documentación del código", "Escribir la documentación detallada...", "05/08/2024", "Tecnología", 8, true))
-        tasks.add(Task("Presentación del proyecto", "Preparar y presentar el proyecto final...", "15/07/2024", "Escuela", 9, false))
-        tasks.add(Task("Investigación de mercado", "Realizar una investigación de mercado...", "25/07/2024", "Trabajo", 7, false))
-        tasks.add(Task("Desarrollo de la app", "Implementar las funcionalidades principales...", "30/07/2024", "Tecnología", 9, false))
-        tasks.add(Task("Documentación del código", "Escribir la documentación detallada...", "05/08/2024", "Tecnología", 8, true))
-        tasks.add(Task("Lanzamiento del producto", "Preparar y lanzar el producto al mercado...", "10/08/2024", "Marketing", 10, false))
+    fun fillTasks() {
+        val userID: String? = AuthManager.currentUserId
+
+        if (userID != null) {
+            val taskReference = FirebaseDatabase.getInstance().reference
+                .child("User")
+                .child(userID)
+                .child("Tasks")
+
+            taskReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val tasks = mutableListOf<Task>()
+
+                    for (taskSnapshot in snapshot.children) {
+                        try {
+                            // Extract data from the snapshot as a HashMap
+                            val taskMap = taskSnapshot.value as HashMap<*, *>
+
+                            // Create a Task object manually from the HashMap
+                            val titulo = taskMap["titulo"] as String
+                            val descripcion = taskMap["descripcion"] as String
+                            val fecha = taskMap["fecha"] as String
+                            val categoria = taskMap["categoria"] as String
+                            val prioridad = (taskMap["prioridad"] as Long).toInt() // Firebase returns Long for Integers
+                            val terminado = taskMap["terminado"] as Boolean
+
+                            val task = Task(titulo, descripcion, fecha, categoria, prioridad, terminado)
+                            tasks.add(task)
+                        } catch (e: Exception) {
+                            Log.e("Task Conversion", "Error converting Task", e)
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // Handle cancelled event
+                    Log.e("Firebase Database", "Error fetching Tasks", error.toException())
+                }
+            })
+        }
     }
 
     private fun setUpCharts() {

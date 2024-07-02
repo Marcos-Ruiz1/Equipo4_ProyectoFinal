@@ -14,6 +14,8 @@ import rodriguez.rosa.evangelion30.util.SubscriptorProxy
 import rodriguez.rosa.evangelion30.util.Topics
 import org.threeten.bp.LocalDate
 import com.jakewharton.threetenabp.AndroidThreeTen
+import rodriguez.rosa.evangelion30.util.DataBaseManager
+import rodriguez.rosa.evangelion30.util.DataBaseManager.firebaseDatabase
 
 class UserDAO {
 
@@ -117,8 +119,8 @@ class UserDAO {
             )
 
         if (userID!=null){
-            val database = FirebaseDatabase.getInstance()
-            val tasksRef = database.getReference("User").child(userID).child("Tasks")
+
+            val tasksRef = firebaseDatabase.getReference("User").child(userID).child("Tasks")
 
             // Use push() to generate a unique key for the task
             val newTaskRef = tasksRef.push()
