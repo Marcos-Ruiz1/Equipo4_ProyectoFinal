@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.loper7.date_time_picker.number_picker.NumberPicker
 
 class Edit_Task_Activity : AppCompatActivity() {
 
@@ -81,15 +82,45 @@ class Edit_Task_Activity : AppCompatActivity() {
 
         val timestamp = org.threeten.bp.LocalDate.now()
 
-        seleccionadorAnio.maxValue = 2050
+        seleccionadorAnio.maxValue = timestamp.year + 50
         seleccionadorAnio.minValue = timestamp.year
 
         seleccionadorDia.minValue = 1
-        seleccionadorDia.maxValue = 31
+        seleccionadorDia.maxValue = timestamp.month.maxLength()
+
+        seleccionadorMes.setOnValueChangedListener { picker, oldVal, newVal ->
+            updateDateFromMonth(picker, oldVal, newVal)
+        }
+
+        seleccionadorAnio.setOnValueChangedListener { picker, oldVal, newVal ->
+            updateDateFromYear(picker, oldVal, newVal)
+        }
 
         seleccionadorMes.minValue = 1
         seleccionadorMes.maxValue = 12
+    }
 
+    private fun updateDateFromMonth(picker: NumberPicker, oldVal: Int, newVal: Int) {
+        var month: String = ""
+        if (newVal < 10) {
+            month = month.plus("0")
+        }
+        month = month.plus(newVal)
+        val fechaReferencia = org.threeten.bp.LocalDate.parse("${seleccionadorAnio.value}-${month}-01")
+        month.plus(seleccionadorMes.value)
+        seleccionadorDia.maxValue = fechaReferencia.month.maxLength()
+        seleccionadorDia.minValue = 1
+    }
+
+    private fun updateDateFromYear(picker: NumberPicker, oldVal: Int, newVal: Int) {
+        var month: String = ""
+        if (seleccionadorMes.value < 10) {
+            month = month.plus("0")
+        }
+        month = month.plus(seleccionadorMes.value)
+        val fechaReferencia = org.threeten.bp.LocalDate.parse("${newVal}-${month}-01")
+        seleccionadorDia.maxValue = fechaReferencia.month.maxLength()
+        seleccionadorDia.minValue = 1
     }
 
     private fun setearBotones(): Unit {
