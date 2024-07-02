@@ -108,7 +108,15 @@ class Edit_Task_Activity : AppCompatActivity() {
         month = month.plus(newVal)
         val fechaReferencia = org.threeten.bp.LocalDate.parse("${seleccionadorAnio.value}-${month}-01")
         month.plus(seleccionadorMes.value)
-        seleccionadorDia.maxValue = fechaReferencia.month.maxLength()
+
+//        por alguna razon toma todos los anios como leapYear asi q le tenemos que restar uno
+//        al mes de febrero
+        var monthValue = fechaReferencia.month.maxLength()
+        if (!fechaReferencia.isLeapYear && fechaReferencia.month.value == 2) {
+            monthValue -= 1
+        }
+
+        seleccionadorDia.maxValue = monthValue
         seleccionadorDia.minValue = 1
     }
 
