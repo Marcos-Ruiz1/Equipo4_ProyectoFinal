@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import rodriguez.rosa.evangelion30.DAO.UserDAO
 import rodriguez.rosa.evangelion30.dominio.Task
+import rodriguez.rosa.evangelion30.red.ProxyTasks
 import rodriguez.rosa.evangelion30.red.ProxyUsers
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
@@ -30,8 +31,8 @@ class ModeloAddTask: Subscriptor {
     }
 
     fun addTask(title: String, description: String, category: String, priority: Int) {
-        ProxyUsers.getInstance().addSubcriber(this, Topics.ADD_TASK)
-        UserDAO.getInstances().addTask(title, description, category, priority)
+        ProxyTasks.getInstance().addSubcriber(this, Topics.ADD_TASK)
+        ProxyTasks.getInstance().addTask(title, description, category, priority)
     }
 
     fun addSubscriber(sub: Subscriptor) {

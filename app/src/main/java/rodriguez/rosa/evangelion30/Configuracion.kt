@@ -18,6 +18,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import rodriguez.rosa.evangelion30.Controladores.ControladorConfiguracion
 import rodriguez.rosa.evangelion30.Controladores.ControladorHome
 import rodriguez.rosa.evangelion30.DAO.TasksDAO
 import rodriguez.rosa.evangelion30.ui.home.HomeFragment
@@ -113,17 +114,17 @@ class Configuracion : AppCompatActivity(){
                         // Action for "Fecha ascendente"
 
                         FiltersManager.getInstance().turnOnFechaAscendenteFilter()
-                        ControladorHome.getInstance().orderAscendentDates()
+                        ControladorConfiguracion.getInstance().orderAscendentDates()
                     }
                     2 -> {
                         // Action for "Fecha descendente"
                         FiltersManager.getInstance().turnOnFechaDescendenteFilter()
-                        ControladorHome.getInstance().orderDescendent()
+                        ControladorConfiguracion.getInstance().orderDescendent()
                     }
                     3 -> {
                         // Action for "Prioridad"
                         FiltersManager.getInstance().turnOnPriorityFilter()
-                        ControladorHome.getInstance().orderPriority()
+                        ControladorConfiguracion.getInstance().orderPriority()
                     }
                     else -> {
                         // Default action

@@ -27,13 +27,5 @@ class ControladorHome {
         return ModeloHome.getInstance().refreshTasks()
     }
 
-    fun orderPriority(){
-        ModeloHome.getInstance().orderPriority()
-    }
-    fun orderAscendentDates(){
-        ModeloHome.getInstance().orderAscendentDates()
-    }
-    fun orderDescendent(){
-        ModeloHome.getInstance().orderDescententDates()
-    }
+
 }

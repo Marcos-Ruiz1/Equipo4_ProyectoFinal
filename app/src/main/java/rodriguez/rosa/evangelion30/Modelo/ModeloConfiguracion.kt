@@ -32,11 +32,29 @@ class ModeloConfiguracion: Subscriptor {
     fun filteredFetch() {
 
         ProxyTasks.getInstance().addSubcriber(this, Topics.FILTER_TASKS)
-        TasksDAO.getInstances().fetchTasks()
+        ProxyTasks.getInstance().refreshTasks()
 
     }
 
+    fun orderPriority() {
 
+        ProxyTasks.getInstance().addSubcriber(this, Topics.ORDER_LISTS)
+        ProxyTasks.getInstance().orderPriority()
+
+    }
+
+    fun orderAscendentDates() {
+
+        ProxyTasks.getInstance().addSubcriber(this, Topics.ORDER_LISTS)
+        ProxyTasks.getInstance().orderAscendent()
+
+    }
+
+    fun orderDescententDates() {
+
+        ProxyTasks.getInstance().addSubcriber(this, Topics.ORDER_LISTS)
+        ProxyTasks.getInstance().orderDescendent()
+    }
 
     fun addSubscriber(sub: Subscriptor) {
         if(!subscriptores.contains(sub)) {

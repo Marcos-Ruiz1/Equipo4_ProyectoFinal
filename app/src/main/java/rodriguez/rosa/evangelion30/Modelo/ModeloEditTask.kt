@@ -1,13 +1,17 @@
 package rodriguez.rosa.evangelion30.Modelo
 
+import android.util.Log
+import com.google.firebase.database.FirebaseDatabase
+import rodriguez.rosa.evangelion30.DAO.TasksDAO
 import rodriguez.rosa.evangelion30.DAO.UserDAO
+import rodriguez.rosa.evangelion30.dominio.Task
+import rodriguez.rosa.evangelion30.red.ProxyTasks
 import rodriguez.rosa.evangelion30.red.ProxyUsers
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 import rodriguez.rosa.evangelion30.util.Topics
 
-class ModeloLogIn: Subscriptor {
-
+class ModeloEditTask: Subscriptor {
     private var subscriptores = ArrayList<Subscriptor>()
 
 
@@ -15,24 +19,22 @@ class ModeloLogIn: Subscriptor {
 
 
 
-        private var instance: ModeloLogIn? = null
+        private var instance: ModeloEditTask? = null
 
 
-        fun getInstance(): ModeloLogIn {
+        fun getInstance(): ModeloEditTask {
             if (instance == null) {
-                instance = ModeloLogIn()
+                instance = ModeloEditTask()
             }
             return instance!!
         }
 
-
     }
 
-    fun iniciarSesion(email: String, password: String) {
-        ProxyUsers.getInstance().addSubcriber(this, Topics.LOGIN)
-        ProxyUsers.getInstance().inciarSesion(email, password)
+    fun editTask(task:Task) {
+        ProxyTasks.getInstance().addSubcriber(this, Topics.EDIT_TASK)
+        ProxyTasks.getInstance().editTask(task)
     }
-
 
     fun addSubscriber(sub: Subscriptor) {
         if(!subscriptores.contains(sub)) {
@@ -46,5 +48,4 @@ class ModeloLogIn: Subscriptor {
             sub.notificar(data)
         }
     }
-
 }

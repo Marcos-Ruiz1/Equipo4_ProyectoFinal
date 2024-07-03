@@ -60,10 +60,7 @@ class ProxyUsers : SubscriptorProxy {
         UserDAO.getInstances().logOutUser()
     }
 
-    fun addTask(title: String, description: String, category: String, priority:Int){
-        UserDAO.getInstances().addSubcriber(this, Topics.ADD_TASK)
-        UserDAO.getInstances().addTask(title, description, category, priority)
-    }
+
 
 
 

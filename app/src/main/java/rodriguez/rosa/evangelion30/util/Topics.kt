@@ -8,5 +8,8 @@ enum class Topics {
     ADD_TASK,
     FILTER_TASKS,
     REFRESH_TASKS,
-    ORDER_LISTS
+    ORDER_LISTS,
+    EDIT_TASK,
+    DELETE_TASK,
+
 }

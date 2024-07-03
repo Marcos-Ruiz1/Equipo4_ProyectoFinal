@@ -32,30 +32,10 @@ class ModeloHome: Subscriptor {
     fun refreshTasks(): ArrayList<Task> {
 
         ProxyTasks.getInstance().addSubcriber(this, Topics.REFRESH_TASKS)
-        return TasksDAO.getInstances().fetchTasks()
+        return ProxyTasks.getInstance().filteredFetch()
 
     }
 
-    fun orderPriority() {
-
-        ProxyTasks.getInstance().addSubcriber(this, Topics.ORDER_LISTS)
-        TasksDAO.getInstances().orderPriority()
-
-    }
-
-    fun orderAscendentDates() {
-
-        ProxyTasks.getInstance().addSubcriber(this, Topics.ORDER_LISTS)
-        TasksDAO.getInstances().orderAscendentDates()
-
-    }
-
-    fun orderDescententDates() {
-
-        ProxyTasks.getInstance().addSubcriber(this, Topics.ORDER_LISTS)
-        TasksDAO.getInstances().orderDescendentDates()
-
-    }
 
     fun addSubscriber(sub: Subscriptor) {
         if(!subscriptores.contains(sub)) {

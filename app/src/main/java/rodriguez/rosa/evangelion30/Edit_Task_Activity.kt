@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
+import rodriguez.rosa.evangelion30.Controladores.ControladorEditTask
 import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.util.DataBaseManager
 
@@ -119,8 +120,9 @@ class Edit_Task_Activity : AppCompatActivity() {
                 terminado = false
             )
 
-            editTask(task)
+            ControladorEditTask.getInstance().editTask(task)
             this.startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
@@ -148,15 +150,7 @@ class Edit_Task_Activity : AppCompatActivity() {
         return fechas(values[0].toInt(), values[1].toInt(), values[2].toInt())
     }
 
-    private fun editTask(task: Task){
-        AuthManager.currentUserId?.let { it1 ->
-            DataBaseManager.databaseReference.child("User").child(
-                it1
-            ).child("Tasks").child(task.id).setValue(task)
-        }
-        Log.e("null","AAAAAAAAAAAAAAAAA"+task.toString())
-        startActivity(Intent(this, MainActivity::class.java))
-    }
+
 
 
 }

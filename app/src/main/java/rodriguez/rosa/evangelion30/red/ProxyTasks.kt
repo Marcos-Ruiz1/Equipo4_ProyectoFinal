@@ -3,6 +3,7 @@ package rodriguez.rosa.evangelion30.red
 import rodriguez.rosa.evangelion30.DAO.TasksDAO
 import rodriguez.rosa.evangelion30.DAO.UserDAO
 import rodriguez.rosa.evangelion30.DAO.UserDAO.Companion
+import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.dominio.Tasks
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
@@ -17,8 +18,11 @@ class ProxyTasks : SubscriptorProxy {
         Topics.FILTER_TASKS.toString() to ArrayList(),
         Topics.REFRESH_TASKS.toString() to ArrayList(),
         Topics.ORDER_LISTS.toString() to ArrayList(),
+        Topics.ADD_TASK.toString() to ArrayList(),
+        Topics.DELETE_TASK.toString() to ArrayList(),
+        Topics.EDIT_TASK.toString() to ArrayList(),
 
-    )
+        )
 
     companion object {
         private var instance: ProxyTasks? = null
@@ -44,20 +48,40 @@ class ProxyTasks : SubscriptorProxy {
     }
 
     fun addTask(title: String, description: String, category: String, priority:Int){
-        UserDAO.getInstances().addSubcriber(this, Topics.ADD_TASK)
-        UserDAO.getInstances().addTask(title, description, category, priority)
+        TasksDAO.getInstances().addSubcriber(this, Topics.ADD_TASK)
+        TasksDAO.getInstances().addTask(title, description, category, priority)
     }
 
 
-    fun filteredFetch(){
+    fun filteredFetch():ArrayList<Task>{
         TasksDAO.getInstances().addSubcriber(this, Topics.FILTER_TASKS)
-        TasksDAO.getInstances().fetchTasks()
+        return TasksDAO.getInstances().fetchTasks()
+    }
+
+    fun editTask(task: Task){
+        TasksDAO.getInstances().addSubcriber(this, Topics.EDIT_TASK)
+        TasksDAO.getInstances().editTask(task)
     }
 
 
     fun refreshTasks(){
         TasksDAO.getInstances().addSubcriber(this, Topics.REFRESH_TASKS)
         TasksDAO.getInstances().fetchTasks()
+    }
+
+    fun orderPriority(){
+        TasksDAO.getInstances().addSubcriber(this, Topics.ORDER_LISTS)
+        TasksDAO.getInstances().orderPriority()
+    }
+
+    fun orderAscendent(){
+        TasksDAO.getInstances().addSubcriber(this, Topics.ORDER_LISTS)
+        TasksDAO.getInstances().orderAscendentDates()
+    }
+
+    fun orderDescendent(){
+        TasksDAO.getInstances().addSubcriber(this, Topics.ORDER_LISTS)
+        TasksDAO.getInstances().orderDescendentDates()
     }
 
 

@@ -2,6 +2,7 @@ package rodriguez.rosa.evangelion30.Controladores
 
 import rodriguez.rosa.evangelion30.Modelo.ModeloAddTask
 import rodriguez.rosa.evangelion30.Modelo.ModeloConfiguracion
+import rodriguez.rosa.evangelion30.Modelo.ModeloHome
 import rodriguez.rosa.evangelion30.Modelo.ModeloLogIn
 
 class ControladorConfiguracion {
@@ -27,5 +28,15 @@ class ControladorConfiguracion {
 
     fun orderList() {
         ModeloConfiguracion.getInstance().filteredFetch()
+    }
+
+    fun orderPriority(){
+        ModeloConfiguracion.getInstance().orderPriority()
+    }
+    fun orderAscendentDates(){
+        ModeloConfiguracion.getInstance().orderAscendentDates()
+    }
+    fun orderDescendent(){
+        ModeloConfiguracion.getInstance().orderDescententDates()
     }
 }

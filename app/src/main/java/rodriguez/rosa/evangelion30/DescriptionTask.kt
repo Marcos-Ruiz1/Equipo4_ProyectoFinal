@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import rodriguez.rosa.evangelion30.Controladores.ControladorEditTask
 import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.util.DataBaseManager
 
@@ -78,7 +79,7 @@ class DescriptionTask : AppCompatActivity() {
                 prioridad = prioridad,
                 terminado = true
             )
-            editTask(task)
+            ControladorEditTask.getInstance().editTask(task)
         }
     }
 
@@ -108,14 +109,7 @@ class DescriptionTask : AppCompatActivity() {
     }
 
 
-    private fun editTask(task: Task){
-        AuthManager.currentUserId?.let { it1 ->
-            DataBaseManager.databaseReference.child("User").child(
-                it1
-            ).child("Tasks").child(task.id).setValue(task)
-        }
-        startActivity(Intent(this, MainActivity::class.java))
-    }
+
 
 
 }

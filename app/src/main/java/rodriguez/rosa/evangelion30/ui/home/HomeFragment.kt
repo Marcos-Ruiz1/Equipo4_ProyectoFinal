@@ -151,7 +151,6 @@ class HomeFragment : Fragment() {
             var inflador = LayoutInflater.from(contexto)
             var vista = inflador.inflate(R.layout.task_view, null)
 
-
             if(task.terminado){
                 vista = inflador.inflate(R.layout.task_finished_view, null)
             }
@@ -170,7 +169,6 @@ class HomeFragment : Fragment() {
             categoriaTask.setText(task.categoria)
 
             terminarTurno.setOnClickListener {
-
                 val intent = Intent(contexto, DescriptionTask::class.java)
                 intent.putExtra("id", task.id)
                 intent.putExtra("titulo", task.titulo)
@@ -181,12 +179,7 @@ class HomeFragment : Fragment() {
                 intent.putExtra("terminado", task.terminado)
                 contexto?.startActivity(intent)
             }
-
             return vista
-
         }
-
     }
-
-
 }

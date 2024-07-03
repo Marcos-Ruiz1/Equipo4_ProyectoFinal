@@ -24,7 +24,7 @@ class UserDAO {
         Topics.REGISTRO.toString() to ArrayList(),
         Topics.LOGIN.toString() to ArrayList(),
         Topics.LOGOUT.toString() to ArrayList(),
-        Topics.RESET_PASSWORD.toString() to ArrayList()
+        Topics.RESET_PASSWORD.toString() to ArrayList(),
     )
 
     companion object {
@@ -107,45 +107,7 @@ class UserDAO {
             sub.notificar(data, topic)        }
     }
 
-    fun addTask(title: String, description: String, category: String, priority: Int) {
-        val userID: String? = AuthManager.currentUserId
 
-        if (userID != null) {
-            val tasksRef = firebaseDatabase.getReference("User").child(userID).child("Tasks")
-
-            val newTaskRef = tasksRef.push()
-            val taskId = newTaskRef.key
-
-
-            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            val formattedDate = LocalDate.now().format(formatter)
-
-            if (taskId != null) {
-                val task = Task(
-                    id = taskId,
-                    titulo = title,
-                    descripcion = description,
-                    fecha = formattedDate,
-                    categoria = category,
-                    prioridad = priority,
-                    terminado = false
-                )
-
-                newTaskRef.setValue(task)
-                    .addOnSuccessListener {
-                        // Task added successfully
-                        Log.d("FirebaseDatabase", "Task added successfully")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("FirebaseDatabase", "Error adding task", e)
-                    }
-            } else {
-                Log.e("FirebaseDatabase", "Failed to generate a unique key for the task")
-            }
-        } else {
-            Log.e("FirebaseDatabase", "User ID is null")
-        }
-    }
 
 
 
