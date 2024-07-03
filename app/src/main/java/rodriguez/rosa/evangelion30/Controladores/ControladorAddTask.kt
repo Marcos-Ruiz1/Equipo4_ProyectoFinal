@@ -20,8 +20,8 @@ class ControladorAddTask {
 
     }
 
-    fun addTask(title: String, description: String, category: String, priority: Int) {
-        ModeloAddTask.getInstance().addTask(title, description, category, priority)
+    fun addTask(title: String, description: String, category: String, priority: Int, date: String) {
+        ModeloAddTask.getInstance().addTask(title, description, category, priority, date)
     }
 
 }

@@ -47,9 +47,9 @@ class ProxyTasks : SubscriptorProxy {
 
     }
 
-    fun addTask(title: String, description: String, category: String, priority:Int){
+    fun addTask(title: String, description: String, category: String, priority:Int, date: String){
         TasksDAO.getInstances().addSubcriber(this, Topics.ADD_TASK)
-        TasksDAO.getInstances().addTask(title, description, category, priority)
+        TasksDAO.getInstances().addTask(title, description, category, priority, date)
     }
 
 

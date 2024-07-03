@@ -111,10 +111,8 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
                 ).show()
                 return@setOnClickListener
             }
-
-
             ControladorAddTask.getInstance().addTask(
-                title, description, category, priority
+                title, description, category, priority, getSelectedDate()
             )
         }
 
@@ -123,6 +121,13 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
     private fun isAnyFieldBlank(title: String, description: String, category: String, priority: Int ): Boolean {
         return title.isBlank() || description.isBlank()|| category.isBlank()|| priority.toString().isBlank()
 
+    }
+
+    private fun getSelectedDate(): String {
+        val year = seleccionadorAnio.value
+        val month = seleccionadorMes.value
+        val day = seleccionadorDia.value
+        return "%04d-%02d-%02d".format(year, month, day)
     }
 
     private fun setearDatos(): Unit {

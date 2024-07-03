@@ -62,7 +62,7 @@ class TasksDAO {
 
     }
 
-    fun addTask(title: String, description: String, category: String, priority: Int) {
+    fun addTask(title: String, description: String, category: String, priority: Int, date: String) {
         val userID: String? = AuthManager.currentUserId
 
         if (userID != null) {
@@ -73,7 +73,7 @@ class TasksDAO {
 
 
             val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-            val formattedDate = LocalDate.now().format(formatter)
+            val formattedDate = LocalDate.parse(date).format(formatter)
 
             if (taskId != null) {
                 val task = Task(

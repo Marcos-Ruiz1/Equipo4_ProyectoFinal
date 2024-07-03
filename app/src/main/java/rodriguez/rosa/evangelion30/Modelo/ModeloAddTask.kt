@@ -30,9 +30,9 @@ class ModeloAddTask: Subscriptor {
 
     }
 
-    fun addTask(title: String, description: String, category: String, priority: Int) {
+    fun addTask(title: String, description: String, category: String, priority: Int, date: String) {
         ProxyTasks.getInstance().addSubcriber(this, Topics.ADD_TASK)
-        ProxyTasks.getInstance().addTask(title, description, category, priority)
+        ProxyTasks.getInstance().addTask(title, description, category, priority, date)
     }
 
     fun addSubscriber(sub: Subscriptor) {
