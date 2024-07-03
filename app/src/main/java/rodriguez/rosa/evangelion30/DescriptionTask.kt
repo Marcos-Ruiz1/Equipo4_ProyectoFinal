@@ -10,6 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import org.threeten.bp.LocalDate
+import org.threeten.bp.format.DateTimeFormatter
 import rodriguez.rosa.evangelion30.Controladores.ControladorEditTask
 import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.util.DataBaseManager
@@ -70,11 +72,13 @@ class DescriptionTask : AppCompatActivity() {
         }
 
         terminarButton.setOnClickListener {
+
+
             val task = Task(
                 id = id,
                 titulo = tituloTask.text.toString(),
                 descripcion = descripcionTask.text.toString(),
-                fecha = fechaTask.text.toString(),
+                fecha = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                 categoria = categoriaTask.text.toString(),
                 prioridad = prioridad,
                 terminado = true
@@ -108,7 +112,10 @@ class DescriptionTask : AppCompatActivity() {
         finish()
     }
 
-
+    private fun getFecha(fecha: String): Edit_Task_Activity.fechas {
+        val values = fecha.split("/")
+        return Edit_Task_Activity.fechas(values[0].toInt(), values[1].toInt(), values[2].toInt())
+    }
 
 
 
