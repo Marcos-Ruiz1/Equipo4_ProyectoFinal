@@ -15,6 +15,7 @@ import rodriguez.rosa.evangelion30.util.Topics
 import org.threeten.bp.LocalDate
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.threeten.bp.format.DateTimeFormatter
+import rodriguez.rosa.evangelion30.Add_Task_Activity
 import rodriguez.rosa.evangelion30.dominio.Tasks
 import rodriguez.rosa.evangelion30.util.DataBaseManager
 import rodriguez.rosa.evangelion30.util.DataBaseManager.firebaseDatabase
@@ -89,11 +90,14 @@ class TasksDAO {
                 newTaskRef.setValue(task)
                     .addOnSuccessListener {
                         // Task added successfully
+                        notificar(NotificacionesUsuario.TAREA_AGREGADA_CON_EXITO, Topics.ADD_TASK)
                         Log.d("FirebaseDatabase", "Task added successfully")
                     }
                     .addOnFailureListener { e ->
+                        notificar(NotificacionesUsuario.ERROR_AL_AGREGAR_TAREA, Topics.ADD_TASK)
                         Log.e("FirebaseDatabase", "Error adding task", e)
                     }
+
             } else {
                 Log.e("FirebaseDatabase", "Failed to generate a unique key for the task")
             }
@@ -135,10 +139,11 @@ class TasksDAO {
 
     fun orderPriority() {
         val showingTasks = Tasks.getInstance().getTasks()
-                showingTasks.sortByDescending { it.prioridad }
-        Log.e("FilteredTasks", "Filtered tasks: ${showingTasks.map { it.titulo }}")
-        }
 
+        showingTasks.sortByDescending { it.prioridad }
+
+        Log.e("FilteredTasks", "Filtered tasks: ${showingTasks.map { it.titulo }}")
+    }
 
     fun orderDescendentDates() {
         val showingTasks = Tasks.getInstance().getTasks()
@@ -156,8 +161,18 @@ class TasksDAO {
         AuthManager.currentUserId?.let { it1 ->
             DataBaseManager.databaseReference.child("User").child(
                 it1
-            ).child("Tasks").child(task.id).setValue(task)
+            ).child("Tasks").child(task.id).setValue(task).addOnSuccessListener {
+                notificar(NotificacionesUsuario.TAREA_EDITADA_CON_EXITO, Topics.EDIT_TASK)
+            } .addOnFailureListener {
+                notificar(NotificacionesUsuario.ERROR_AL_EDITAR_TAREA, Topics.EDIT_TASK)
+            }
         }
     }
 
+    private fun notificar(data: NotificacionesUsuario, topic: Topics) {
+        for( sub in subscriptores[topic.toString()]!!) {
+            sub.notificar(data, topic)
+        }
     }
+
+}

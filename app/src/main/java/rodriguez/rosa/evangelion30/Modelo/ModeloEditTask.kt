@@ -31,6 +31,12 @@ class ModeloEditTask: Subscriptor {
 
     }
 
+    init {
+        ProxyTasks.getInstance().addSubcriber(
+            this, Topics.EDIT_TASK
+        )
+    }
+
     fun editTask(task:Task) {
         ProxyTasks.getInstance().addSubcriber(this, Topics.EDIT_TASK)
         ProxyTasks.getInstance().editTask(task)

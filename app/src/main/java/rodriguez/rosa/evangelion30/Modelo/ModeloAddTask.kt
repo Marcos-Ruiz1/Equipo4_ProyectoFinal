@@ -10,16 +10,13 @@ import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 import rodriguez.rosa.evangelion30.util.Topics
 
-class ModeloAddTask: Subscriptor {
+class ModeloAddTask private constructor() : Subscriptor {
     private var subscriptores = ArrayList<Subscriptor>()
 
 
     companion object {
 
-
-
         private var instance: ModeloAddTask? = null
-
 
         fun getInstance(): ModeloAddTask {
             if (instance == null) {
@@ -28,6 +25,12 @@ class ModeloAddTask: Subscriptor {
             return instance!!
         }
 
+    }
+
+    init {
+        ProxyTasks.getInstance().addSubcriber(
+            this, Topics.ADD_TASK
+        )
     }
 
     fun addTask(title: String, description: String, category: String, priority: Int, date: String) {

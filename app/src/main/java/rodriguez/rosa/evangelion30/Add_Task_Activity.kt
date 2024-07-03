@@ -18,15 +18,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.loper7.date_time_picker.number_picker.NumberPicker
 import rodriguez.rosa.evangelion30.Controladores.ControladorAddTask
-import rodriguez.rosa.evangelion30.Controladores.ControladorLogIn
-import rodriguez.rosa.evangelion30.DAO.UserDAO
+import rodriguez.rosa.evangelion30.DAO.TasksDAO
 import rodriguez.rosa.evangelion30.Modelo.ModeloAddTask
-import rodriguez.rosa.evangelion30.Modelo.ModeloLogIn
-import rodriguez.rosa.evangelion30.dominio.Task
+import rodriguez.rosa.evangelion30.Modelo.ModeloEditTask
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 
 class Add_Task_Activity : AppCompatActivity(), Subscriptor{
+
 
     data class fechas(val dia: Int, val mes: Int, val anio: Int)
 
@@ -78,56 +77,13 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         setearDatos()
         setearBotones()
 
-
-        botonAgregar.setOnClickListener {
-
-
-            Log.e(null,"WORKING?")
-
-            //subscribir la vista al modelo
-            ModeloAddTask.getInstance().addSubscriber(this)
-
-            val title = textoTitulo.text.toString()
-            val description = textoDescripcion.text.toString()
-            val category = textoCategoria.text.toString()
-            val priority = (spinner.selectedItem as String).toInt()
-
-            val day = seleccionadorDia.value
-            val month = seleccionadorMes.value
-            val year = seleccionadorAnio.value
-
-            val date = "%02d/%02d/%04d".format(day, month, year)
-
-            val hasLimitDate = !checkBoxSinFecha.isChecked
-
-
-
-
-
-            if (isAnyFieldBlank(title, description, category, priority)) {
-                Toast.makeText(
-                    this, "Favor de llenar los campos de manera correcta",
-                    Toast.LENGTH_LONG
-                ).show()
-                return@setOnClickListener
-            }
-            ControladorAddTask.getInstance().addTask(
-                title, description, category, priority, getSelectedDate()
-            )
-        }
+        ModeloAddTask.getInstance().addSubscriber(this)
 
     }
 
     private fun isAnyFieldBlank(title: String, description: String, category: String, priority: Int ): Boolean {
         return title.isBlank() || description.isBlank()|| category.isBlank()|| priority.toString().isBlank()
 
-    }
-
-    private fun getSelectedDate(): String {
-        val year = seleccionadorAnio.value
-        val month = seleccionadorMes.value
-        val day = seleccionadorDia.value
-        return "%04d-%02d-%02d".format(year, month, day)
     }
 
     private fun setearDatos(): Unit {
@@ -194,15 +150,57 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
     private fun setearBotones(): Unit {
 
         botonAgregar.setOnClickListener {
-//            toda la logica para guardar la tarea o verificar que la tarea tiene un formato adecuado
-            val intent: Intent = Intent(this, MainActivity::class.java)
-            this.startActivity(intent)
+
+
+            Log.e(null,"WORKING?")
+
+            //subscribir la vista al modelo
+            ModeloAddTask.getInstance().addSubscriber(this)
+
+            val title = textoTitulo.text.toString()
+            val description = textoDescripcion.text.toString()
+            val category = textoCategoria.text.toString()
+            val priority = (spinner.selectedItem as String).toInt()
+
+            val day = seleccionadorDia.value
+            val month = seleccionadorMes.value
+            val year = seleccionadorAnio.value
+
+            val date = "%04d-%02d-%02d".format(year, month, day)
+
+            if (isAnyFieldBlank(title, description, category, priority)) {
+                Toast.makeText(
+                    this, "Favor de llenar los campos de manera correcta",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+            ControladorAddTask.getInstance().addTask(
+                title, description, category, priority, date
+            )
+
         }
 
     }
 
+    private fun mostrarMensaje(mensaje: String) {
+        Toast.makeText(this,
+            mensaje,
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
     override fun notificar(data: NotificacionesUsuario) {
-        TODO("Not yet implemented")
+
+        if (data == NotificacionesUsuario.TAREA_AGREGADA_CON_EXITO) {
+            mostrarMensaje("Tarea agregada con exito!")
+        } else if (data == NotificacionesUsuario.ERROR_AL_AGREGAR_TAREA) {
+            mostrarMensaje("Error al agregar la tarea")
+        }
+
+        val homeActivity: Intent = Intent(this, MainActivity::class.java)
+        this.startActivity(homeActivity)
+        this.finish()
     }
 
 

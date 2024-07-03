@@ -11,7 +11,7 @@ import rodriguez.rosa.evangelion30.util.SubscriptorProxy
 import rodriguez.rosa.evangelion30.util.Topics
 import java.lang.reflect.Proxy
 
-class ProxyTasks : SubscriptorProxy {
+class ProxyTasks private constructor() : SubscriptorProxy {
 
     private var subscriptores: HashMap<String, ArrayList<Subscriptor>> = hashMapOf(
 
@@ -23,6 +23,17 @@ class ProxyTasks : SubscriptorProxy {
         Topics.EDIT_TASK.toString() to ArrayList(),
         Topics.GET_TASKS.toString() to ArrayList(),
         )
+
+    init {
+
+        TasksDAO.getInstances()
+            .addSubcriber(this, Topics.ADD_TASK)
+
+        TasksDAO.getInstances()
+            .addSubcriber(this, Topics.EDIT_TASK)
+
+
+    }
 
     companion object {
         private var instance: ProxyTasks? = null
@@ -91,7 +102,8 @@ class ProxyTasks : SubscriptorProxy {
 
 
     override fun notificar(data: NotificacionesUsuario, topic: Topics) {
-        for (sub in this.subscriptores.get(topic.toString())!!) {
-            sub.notificar(data)        }
+        for (sub in this.subscriptores[topic.toString()]!!) {
+            sub.notificar(data)
+        }
     }
 }

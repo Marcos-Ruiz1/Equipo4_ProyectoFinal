@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -19,8 +20,11 @@ import rodriguez.rosa.evangelion30.Controladores.ControladorEditTask
 import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.util.DataBaseManager
 import com.loper7.date_time_picker.number_picker.NumberPicker
+import rodriguez.rosa.evangelion30.Modelo.ModeloEditTask
+import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
+import rodriguez.rosa.evangelion30.util.Subscriptor
 
-class Edit_Task_Activity : AppCompatActivity() {
+class Edit_Task_Activity : AppCompatActivity(), Subscriptor {
 
     data class fechas(val dia: Int, val mes: Int, val anio: Int)
 
@@ -75,7 +79,7 @@ class Edit_Task_Activity : AppCompatActivity() {
         setearDatos()
         setearBotones()
 
-
+        ModeloEditTask.getInstance().addSubscriber(this)
     }
 
     private fun setearDatos(): Unit {
@@ -160,8 +164,6 @@ class Edit_Task_Activity : AppCompatActivity() {
             )
 
             ControladorEditTask.getInstance().editTask(task)
-            this.startActivity(intent)
-            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
@@ -189,7 +191,25 @@ class Edit_Task_Activity : AppCompatActivity() {
         return fechas(values[0].toInt(), values[1].toInt(), values[2].toInt())
     }
 
+    private fun mostrarMensaje(mensaje: String) {
+        Toast.makeText(this,
+            mensaje,
+            Toast.LENGTH_LONG
+        ).show()
+    }
 
+    override fun notificar(data: NotificacionesUsuario) {
+
+        if (data == NotificacionesUsuario.TAREA_EDITADA_CON_EXITO) {
+            mostrarMensaje("Tarea editada con exito!")
+        } else if (data == NotificacionesUsuario.ERROR_AL_EDITAR_TAREA) {
+            mostrarMensaje("Error al editar la tarea")
+        }
+
+        this.startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
+        this.finish()
+    }
 
 
 }
