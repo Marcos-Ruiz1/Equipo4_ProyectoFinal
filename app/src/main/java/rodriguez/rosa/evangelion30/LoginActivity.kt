@@ -10,6 +10,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import rodriguez.rosa.evangelion30.Controladores.ControladorLogIn
 import rodriguez.rosa.evangelion30.Controladores.ControladorRegistrarUsuario
 import rodriguez.rosa.evangelion30.Modelo.ModeloLogIn
@@ -71,6 +73,17 @@ class LoginActivity : AppCompatActivity(), Subscriptor {
         forgotPassword.setOnClickListener{
             val intent = Intent(this, RecoverPassword::class.java)
             this.startActivity(intent)
+        }
+
+        if( Firebase.auth.currentUser != null ) {
+            Firebase.auth.signOut() //Cerramos sesion
+
+            Toast.makeText(
+                this,
+                "Sesion cerrada con exito",
+                Toast.LENGTH_LONG
+            ).show()
+
         }
 
     }
