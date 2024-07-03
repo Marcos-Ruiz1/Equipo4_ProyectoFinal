@@ -31,6 +31,7 @@ class TasksDAO {
         Topics.ADD_TASK.toString() to ArrayList(),
         Topics.DELETE_TASK.toString() to ArrayList(),
         Topics.EDIT_TASK.toString() to ArrayList(),
+        Topics.GET_TASKS.toString() to ArrayList(),
         )
 
     companion object {
@@ -113,6 +114,10 @@ class TasksDAO {
         Log.e(null ,"AAAAAAAAAAAAAAAAAAA"+Tasks.getInstance().getShowingTasks())
 
         return Tasks.getInstance().getShowingTasks()
+    }
+
+    fun getAllTasks(): ArrayList<Task> {
+        return Tasks.getInstance().getTasks()
     }
 
     // Filter tasks by category

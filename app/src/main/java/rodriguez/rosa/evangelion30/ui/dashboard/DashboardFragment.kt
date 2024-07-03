@@ -20,6 +20,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import rodriguez.rosa.evangelion30.Controladores.ControladorDashBoard
+import rodriguez.rosa.evangelion30.Controladores.ControladorHome
 import rodriguez.rosa.evangelion30.R
 import rodriguez.rosa.evangelion30.databinding.FragmentDashboardBinding
 import rodriguez.rosa.evangelion30.dominio.Task
@@ -55,6 +57,7 @@ class DashboardFragment : Fragment() {
         weekChart = root.findViewById(R.id.WeekChart)
 
         fillTasks()
+        Log.e("AAAAAAAAAAAAAA", tasks.toString())
         setUpCharts()
 
 //        fin de la configuracion
@@ -63,50 +66,7 @@ class DashboardFragment : Fragment() {
     }
 
     fun fillTasks() {
-        val userID: String? = AuthManager.currentUserId
-
-        if (userID != null) {
-            val taskReference = FirebaseDatabase.getInstance().reference
-                .child("User")
-                .child(userID)
-                .child("Tasks")
-
-            taskReference.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val tasks = mutableListOf<Task>()
-
-                    for (taskSnapshot in snapshot.children) {
-                        try {
-                            // Extract data from the snapshot as a HashMap
-                            val taskMap = taskSnapshot.value as HashMap<*, *>
-
-                            // Create a Task object manually from the HashMap
-                            val id = taskMap["id"] as String
-                            val titulo = taskMap["titulo"] as String
-                            val descripcion = taskMap["descripcion"] as String
-                            val fecha = taskMap["fecha"] as String
-                            val categoria = taskMap["categoria"] as String
-                            val prioridad = (taskMap["prioridad"] as Long).toInt() // Firebase returns Long for Integers
-                            val terminado = taskMap["terminado"] as Boolean
-
-                            val task = Task(id,titulo, descripcion, fecha, categoria, prioridad, terminado)
-                            tasks.add(task)
-                        } catch (e: Exception) {
-                            Log.e("Task Conversion", "Error converting Task", e)
-                        }
-                    }
-
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    // Handle cancelled event
-                    Log.e("Firebase Database", "Error fetching Tasks", error.toException())
-                }
-
-
-
-            })
-        }
+        tasks=ControladorDashBoard.getInstance().getAllTasks()
     }
 
     private fun setUpCharts() {

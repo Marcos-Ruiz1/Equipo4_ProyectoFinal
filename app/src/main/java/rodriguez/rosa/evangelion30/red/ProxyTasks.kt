@@ -21,7 +21,7 @@ class ProxyTasks : SubscriptorProxy {
         Topics.ADD_TASK.toString() to ArrayList(),
         Topics.DELETE_TASK.toString() to ArrayList(),
         Topics.EDIT_TASK.toString() to ArrayList(),
-
+        Topics.GET_TASKS.toString() to ArrayList(),
         )
 
     companion object {
@@ -56,6 +56,11 @@ class ProxyTasks : SubscriptorProxy {
     fun filteredFetch():ArrayList<Task>{
         TasksDAO.getInstances().addSubcriber(this, Topics.FILTER_TASKS)
         return TasksDAO.getInstances().fetchTasks()
+    }
+
+    fun getAllTasks():ArrayList<Task>{
+        TasksDAO.getInstances().addSubcriber(this, Topics.GET_TASKS)
+        return TasksDAO.getInstances().getAllTasks()
     }
 
     fun editTask(task: Task){
