@@ -109,7 +109,9 @@ class LoginActivity : AppCompatActivity(), Subscriptor {
 
 
         } else if (datos == NotificacionesUsuario.LOGIN_INCORRECTO) {
-
+            Toast.makeText(
+                this, "¡LogIn incorrecto, verificar correo o contraseña!", Toast.LENGTH_SHORT
+            ).show()
         } else {
             throw RuntimeException("ENVIAMOS DATOS INCORRECTOS")
         }
