@@ -14,6 +14,7 @@ import rodriguez.rosa.evangelion30.util.SubscriptorProxy
 import rodriguez.rosa.evangelion30.util.Topics
 import org.threeten.bp.LocalDate
 import com.jakewharton.threetenabp.AndroidThreeTen
+import org.threeten.bp.format.DateTimeFormatter
 import rodriguez.rosa.evangelion30.util.DataBaseManager
 import rodriguez.rosa.evangelion30.util.DataBaseManager.firebaseDatabase
 
@@ -106,39 +107,46 @@ class UserDAO {
             sub.notificar(data, topic)        }
     }
 
-    fun addTask(title: String, description: String, category: String, priority: Int){
-        var userID: String? = AuthManager.currentUserId
+    fun addTask(title: String, description: String, category: String, priority: Int) {
+        val userID: String? = AuthManager.currentUserId
 
-            val task = Task(
-                titulo = title,
-                descripcion = description,
-                fecha = LocalDate.now().toString(),  // Example date format
-                categoria = category,    // Example category
-                prioridad = priority,         // Example priority level
-                terminado = false      // Task is not yet completed
-            )
-
-        if (userID!=null){
-
+        if (userID != null) {
             val tasksRef = firebaseDatabase.getReference("User").child(userID).child("Tasks")
 
-            // Use push() to generate a unique key for the task
             val newTaskRef = tasksRef.push()
+            val taskId = newTaskRef.key
 
-            // Set the value of the new task node
-            newTaskRef.setValue(task)  .addOnSuccessListener {
-                // Task added successfully
-                Log.d("FirebaseDatabase", "Task added successfully")
+
+            val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            val formattedDate = LocalDate.now().format(formatter)
+
+            if (taskId != null) {
+                val task = Task(
+                    id = taskId,
+                    titulo = title,
+                    descripcion = description,
+                    fecha = formattedDate,
+                    categoria = category,
+                    prioridad = priority,
+                    terminado = false
+                )
+
+                newTaskRef.setValue(task)
+                    .addOnSuccessListener {
+                        // Task added successfully
+                        Log.d("FirebaseDatabase", "Task added successfully")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("FirebaseDatabase", "Error adding task", e)
+                    }
+            } else {
+                Log.e("FirebaseDatabase", "Failed to generate a unique key for the task")
             }
-                .addOnFailureListener { e ->
-                    // Handle any errors
-                    Log.e("FirebaseDatabase", "Error adding task", e)
-                }
         } else {
             Log.e("FirebaseDatabase", "User ID is null")
         }
-
     }
+
 
 
 }

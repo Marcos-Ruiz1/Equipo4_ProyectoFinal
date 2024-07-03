@@ -57,7 +57,8 @@
     <!--    configuracion-->
     <string name="showTasksTittle">Mostrar tareas por:</string>
     <string name="showFinishedTasks">Mostrar tareas terminadas:</string>
-
+    <string name="category_hint">Categoria:</string>
+    <string name="search">Buscar:</string>
 
     <!--    Estadisticas-->
     <string name="YearStatsTittle">Tareas terminadas al año:</string>

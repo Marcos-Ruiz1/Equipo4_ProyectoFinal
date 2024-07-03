@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.FirebaseApp
 import rodriguez.rosa.evangelion30.databinding.ActivityMainBinding
+import rodriguez.rosa.evangelion30.util.DataBaseManager
 
 class MainActivity : AppCompatActivity() {
 

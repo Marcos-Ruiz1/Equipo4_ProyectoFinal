@@ -7,7 +7,7 @@ object AuthManager {
     var currentUser: FirebaseUser? = auth.currentUser
 
     val currentUserId: String?
-        get() = currentUser?.uid
+        get() = auth.currentUser?.uid
 
     fun refreshUser() {
         currentUser = auth.currentUser

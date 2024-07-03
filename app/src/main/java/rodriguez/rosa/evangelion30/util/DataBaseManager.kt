@@ -9,7 +9,4 @@ object DataBaseManager {
         val firebaseDatabase = FirebaseDatabase.getInstance()
         val databaseReference = firebaseDatabase.getReference()
 
-
-
-
 }

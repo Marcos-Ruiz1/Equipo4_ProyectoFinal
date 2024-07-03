@@ -81,6 +81,7 @@ class DashboardFragment : Fragment() {
                             val taskMap = taskSnapshot.value as HashMap<*, *>
 
                             // Create a Task object manually from the HashMap
+                            val id = taskMap["id"] as String
                             val titulo = taskMap["titulo"] as String
                             val descripcion = taskMap["descripcion"] as String
                             val fecha = taskMap["fecha"] as String
@@ -88,18 +89,22 @@ class DashboardFragment : Fragment() {
                             val prioridad = (taskMap["prioridad"] as Long).toInt() // Firebase returns Long for Integers
                             val terminado = taskMap["terminado"] as Boolean
 
-                            val task = Task(titulo, descripcion, fecha, categoria, prioridad, terminado)
+                            val task = Task(id,titulo, descripcion, fecha, categoria, prioridad, terminado)
                             tasks.add(task)
                         } catch (e: Exception) {
                             Log.e("Task Conversion", "Error converting Task", e)
                         }
                     }
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     // Handle cancelled event
                     Log.e("Firebase Database", "Error fetching Tasks", error.toException())
                 }
+
+
+
             })
         }
     }
