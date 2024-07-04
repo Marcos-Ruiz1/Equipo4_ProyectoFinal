@@ -30,6 +30,7 @@ class Configuracion : AppCompatActivity(){
     var options  = ArrayList<String>()
     var categorias  = ArrayList<String>()
 
+    val filterManager = FiltersManager.getInstance()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +52,17 @@ class Configuracion : AppCompatActivity(){
         val categoriaInput: EditText = findViewById(R.id.categoryInput)
         val search: Button = findViewById(R.id.addCategoryButton)
 
-        search.setOnClickListener {
+        val notFinishedTaskCheckBox: CheckBox = findViewById(R.id.showFinishedTasks)
 
-            FiltersManager.getInstance().setCategoryFilter(categoriaInput.text.toString())
+
+        search.setOnClickListener {
+            filterManager.setCategoryFilter(categoriaInput.text.toString())
             ControladorHome.getInstance().refreshTasks()
             Log.e(null,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA SÍ LLEGO PTM")
+
+            val homeActivity: Intent = Intent(this, MainActivity::class.java)
+            this.startActivity(homeActivity)
+            this.finish()
         }
     }
 
