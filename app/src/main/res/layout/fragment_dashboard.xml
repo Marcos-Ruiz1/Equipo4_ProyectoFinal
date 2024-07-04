@@ -17,19 +17,16 @@
         android:fontFamily="sans-serif-light"
         android:paddingVertical="10dp"
         android:textColor="@color/white"
-        android:textSize="@dimen/textHeaderSize"
-        />
+        android:textSize="@dimen/textHeaderSize" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -40,16 +37,14 @@
                 android:paddingVertical="20dp"
                 android:paddingHorizontal="10dp"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/YearChart"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                />
+                android:layout_marginEnd="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -60,16 +55,14 @@
                 android:paddingVertical="20dp"
                 android:paddingHorizontal="10dp"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/MonthChart"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                />
+                android:layout_marginEnd="10dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -80,16 +73,32 @@
                 android:paddingVertical="20dp"
                 android:paddingHorizontal="10dp"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="16sp"
-                />
+                android:textSize="16sp" />
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/WeekChart"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                />
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/FinishedVsUnfinishedTittle"
+                android:gravity="start"
+                android:fontFamily="sans-serif-light"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/colorTextBlack"
+                android:textSize="16sp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/taskPieChart"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp" />
 
         </LinearLayout>
 

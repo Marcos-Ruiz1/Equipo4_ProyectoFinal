@@ -6,22 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import rodriguez.rosa.evangelion30.Controladores.ControladorDashBoard
-import rodriguez.rosa.evangelion30.Controladores.ControladorHome
 import rodriguez.rosa.evangelion30.R
 import rodriguez.rosa.evangelion30.databinding.FragmentDashboardBinding
 import rodriguez.rosa.evangelion30.dominio.Task
@@ -36,10 +33,11 @@ class DashboardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-//    del equipo
+    // Chart variables
     private lateinit var yearChart: BarChart
     private lateinit var monthChart: BarChart
     private lateinit var weekChart: BarChart
+    private lateinit var taskPieChart: PieChart
     private var tasks = ArrayList<Task>()
 
     override fun onCreateView(
@@ -50,23 +48,22 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        configuracion
-
-        yearChart =  root.findViewById(R.id.YearChart)
+        // Initialize charts
+        yearChart = root.findViewById(R.id.YearChart)
         monthChart = root.findViewById(R.id.MonthChart)
         weekChart = root.findViewById(R.id.WeekChart)
+        taskPieChart = root.findViewById(R.id.taskPieChart)
 
+        // Fetch tasks
         fillTasks()
-        Log.e("AAAAAAAAAAAAAA", tasks.toString())
         setUpCharts()
-
-//        fin de la configuracion
+        setUpPieChart()
 
         return root
     }
 
     fun fillTasks() {
-        tasks=ControladorDashBoard.getInstance().getAllTasks()
+        tasks = ControladorDashBoard.getInstance().getAllTasks()
     }
 
     private fun setUpCharts() {
@@ -76,9 +73,14 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupChart(chart: BarChart, data: Map<String, Int>) {
-        val entries = data.entries.mapIndexed { index, entry -> BarEntry(index.toFloat(), entry.value.toFloat()) }
+        val entries = data.entries.mapIndexed { index, entry ->
+            BarEntry(
+                index.toFloat(),
+                entry.value.toFloat()
+            )
+        }
         val dataSet = BarDataSet(entries, "Tareas finalizadas")
-        dataSet.color = Color.BLUE
+        dataSet.color = Color.parseColor("#734f9a")
 
         val barData = BarData(dataSet)
         barData.barWidth = 0.9f
@@ -106,10 +108,34 @@ class DashboardFragment : Fragment() {
         chart.axisRight.isEnabled = false
     }
 
+    private fun setUpPieChart() {
+        val finishedTasks = tasks.count { it.terminado }
+        val unfinishedTasks = tasks.size - finishedTasks
+
+        val entries = listOf(
+            PieEntry(finishedTasks.toFloat(), "Finished"),
+            PieEntry(unfinishedTasks.toFloat(), "Unfinished")
+        )
+
+        val dataSet = PieDataSet(entries, "Task Status")
+        dataSet.colors = listOf(Color.parseColor("#8bd450"),Color.parseColor("#734f9a"))
+        val pieData = PieData(dataSet)
+
+        taskPieChart.data = pieData
+        taskPieChart.invalidate()
+    }
+
     private fun getTasksPerCategory(tasks: List<Task>, dateFormat: String): Map<String, Int> {
         val format = SimpleDateFormat(dateFormat, Locale.getDefault())
         val taskMap = tasks.filter { it.terminado }
-            .groupBy { format.format(SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(it.fecha)) }
+            .groupBy {
+                format.format(
+                    SimpleDateFormat(
+                        "dd/MM/yyyy",
+                        Locale.getDefault()
+                    ).parse(it.fecha)
+                )
+            }
             .mapValues { entry -> entry.value.groupBy { it.categoria }.mapValues { it.value.size } }
         return taskMap.flatMap { it.value.entries }
             .groupBy { it.key }
