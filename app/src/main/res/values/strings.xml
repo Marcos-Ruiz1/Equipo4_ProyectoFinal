@@ -65,5 +65,8 @@
     <string name="MonthStatsTittle">Tareas terminadas al mes:</string>
     <string name="WeekStatsTittle">Tareas terminadas a la semana:</string>
     <string name="FinishedVsUnfinishedTittle">Tareas terminadas vs sin terminar:</string>
+    <string name="CompletedTasksOverTime">Tareas terminadas sobre tiempo:</string>
+
+
 
 </resources>

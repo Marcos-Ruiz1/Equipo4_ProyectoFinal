@@ -1,6 +1,7 @@
 package rodriguez.rosa.evangelion30
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -35,6 +36,11 @@ class Configuracion : AppCompatActivity(){
     var showingCategories = false
     var creatingButtons = false
 
+
+    val filterManager = FiltersManager.getInstance()
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,11 +63,14 @@ class Configuracion : AppCompatActivity(){
         val categorySwitch : Button = findViewById(R.id.categorySwitch)
         llCategories = findViewById(R.id.layoutCat)
 
-        search.setOnClickListener {
+        val notFinishedTaskCheckBox: CheckBox = findViewById(R.id.showFinishedTasks)
 
-            FiltersManager.getInstance().setCategoryFilter(categoriaInput.text.toString())
+
+        search.setOnClickListener {
+            filterManager.setCategoryFilter(categoriaInput.text.toString())
             ControladorHome.getInstance().refreshTasks()
             Log.e(null,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA SÍ LLEGO PTM")
+
 
         }
 
@@ -100,6 +109,11 @@ class Configuracion : AppCompatActivity(){
             checkBox.text = category
 
             llCategories.addView(checkBox)
+
+            val homeActivity: Intent = Intent(this, MainActivity::class.java)
+            this.startActivity(homeActivity)
+            this.finish()
+
         }
     }
 
