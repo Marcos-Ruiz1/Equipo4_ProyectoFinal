@@ -1,6 +1,7 @@
 package rodriguez.rosa.evangelion30
 
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -55,6 +56,13 @@ class DescriptionTask : AppCompatActivity() {
         val updateButton: Button = findViewById(R.id.updateButton)
         val terminarButton: Button = findViewById(R.id.terminarTaskButton)
 
+        if ( estado ) {
+
+            terminarButton.isEnabled = false
+            terminarButton.setBackgroundColor( resources.getColor(R.color.gray, null) )
+
+        }
+
         deleteButton.setOnClickListener {
             mostrarAlertaEliminarTarea(id)
 
@@ -72,8 +80,6 @@ class DescriptionTask : AppCompatActivity() {
         }
 
         terminarButton.setOnClickListener {
-
-
             val task = Task(
                 id = id,
                 titulo = tituloTask.text.toString(),
@@ -84,6 +90,18 @@ class DescriptionTask : AppCompatActivity() {
                 terminado = true
             )
             ControladorEditTask.getInstance().editTask(task)
+
+//            val mainActivity: Intent = Intent(this, MainActivity::class.java)
+//            this.startActivity(mainActivity)
+
+
+            Toast.makeText(
+                this,
+                "Tarea terminada con exito",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            this.finish()
         }
     }
 
