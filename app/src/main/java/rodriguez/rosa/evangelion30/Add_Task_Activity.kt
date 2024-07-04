@@ -81,6 +81,7 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         setearDatos()
         setearBotones()
         categoryList = loadCategories()
+
         addCheckboxesFromCategories(this,checkboxContainer)
 
         ModeloAddTask.getInstance().addSubscriber(this)
@@ -278,6 +279,20 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
 
     fun listToString(list: MutableList<String>): String {
         return list.joinToString(separator = ", ")
+    }
+
+    fun clearCategories() {
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("categories")
+        editor.apply()
+
+        // Limpiar la lista local también
+        categoryList.clear()
+
+        // Actualizar la interfaz de usuario si es necesario
+        checkboxContainer.removeAllViews() // Esto elimina todos los checkboxes de la vista
+        Toast.makeText(this, "Todas las categorías han sido eliminadas", Toast.LENGTH_SHORT).show()
     }
 
 
