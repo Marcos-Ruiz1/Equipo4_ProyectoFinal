@@ -1,5 +1,6 @@
 package rodriguez.rosa.evangelion30
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -18,9 +20,13 @@ import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.loper7.date_time_picker.number_picker.NumberPicker
 import rodriguez.rosa.evangelion30.Controladores.ControladorAddTask
+
 import rodriguez.rosa.evangelion30.DAO.TasksDAO
 import rodriguez.rosa.evangelion30.Modelo.ModeloAddTask
 import rodriguez.rosa.evangelion30.Modelo.ModeloEditTask
+
+
+
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 
@@ -42,6 +48,10 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
     private lateinit var seleccionadorDia: com.loper7.date_time_picker.number_picker.NumberPicker
     private lateinit var checkBoxSinFecha: CheckBox
     private lateinit var botonAgregar: Button
+    private lateinit var llCategories: LinearLayout
+
+    private var categoriesList = mutableListOf<String>()
+    private val selectedCategories = mutableSetOf<String>()
 //    fin de los atributos de la pantalla
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +79,7 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         seleccionadorDia      = findViewById(R.id.np_datetime_day)
         checkBoxSinFecha      = findViewById<CheckBox>(R.id.checkboxDeadline)
         tituloActividad       = findViewById<TextView>(R.id.tituloActividad)
+        llCategories = findViewById(R.id.llCategories)
 
         //Modificación del texto del boton y el titulo de la actividad
         botonAgregar.text = "AGREGAR TAREA"
@@ -78,6 +89,56 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         setearBotones()
 
         ModeloAddTask.getInstance().addSubscriber(this)
+        categoriesList = loadCategories()
+        addCheckboxesFromCategories(this,llCategories)
+        botonAgregar.setOnClickListener {
+
+
+            Log.e(null,"WORKING?")
+
+            //subscribir la vista al modelo
+            ModeloAddTask.getInstance().addSubscriber(this)
+
+            val title = textoTitulo.text.toString()
+            val description = textoDescripcion.text.toString()
+            val category = textoCategoria.text.toString()
+            val priority = (spinner.selectedItem as String).toInt()
+
+            val day = seleccionadorDia.value
+            val month = seleccionadorMes.value
+            val year = seleccionadorAnio.value
+
+            val date = "%02d/%02d/%04d".format(day, month, year)
+
+            val hasLimitDate = !checkBoxSinFecha.isChecked
+
+
+
+
+
+            if (isAnyFieldBlank(title, description, category, priority)) {
+                Toast.makeText(
+                    this, "Favor de llenar los campos de manera correcta",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
+
+            ControladorAddTask.getInstance().addTask(
+                title, description, category, priority, date
+            )
+        }
+
+
+        botonAgregarCategoria.setOnClickListener {
+            val newCategory = textoCategoria.text.toString().trim()
+            if (newCategory.isNotEmpty() && !categoriesList.contains(newCategory)) {
+                addCategoryCheckBox(newCategory)
+                categoriesList.add(newCategory)
+                saveCategories(categoriesList,this)
+            }
+        }
 
     }
 
@@ -183,12 +244,32 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
 
     }
 
+
     private fun mostrarMensaje(mensaje: String) {
         Toast.makeText(this,
             mensaje,
             Toast.LENGTH_LONG
         ).show()
     }
+
+
+    private fun addCategoryCheckBox(category: String) {
+        val checkBox = CheckBox(this).apply {
+            text = category
+
+            setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) {
+                    selectedCategories.add(category)
+                } else {
+                    selectedCategories.remove(category)
+                }
+            }
+        }
+        llCategories.addView(checkBox)
+    }
+
+
+
 
     override fun notificar(data: NotificacionesUsuario) {
 
@@ -203,5 +284,28 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         this.finish()
     }
 
+    fun loadCategories(): MutableList<String> {
+        val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val categoriesSet = sharedPreferences.getStringSet("categories", emptySet())
+        return (categoriesSet?.toList() ?: emptyList()).toMutableList()
+    }
+
+    fun saveCategories(categories: List<String>, context: Context) {
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("categories", categories.toSet())
+        editor.apply()
+    }
+
+    private fun addCheckboxesFromCategories(context: Context, layout: LinearLayout) {
+        val categories = loadCategories()
+
+        for (category in categories) {
+            val checkBox = CheckBox(context)
+            checkBox.text = category
+
+            llCategories.addView(checkBox)
+        }
+    }
 
 }

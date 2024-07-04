@@ -50,6 +50,8 @@
                 android:dividerHeight="0.5dp"
                 android:indicatorRight="?android:attr/expandableListPreferredItemIndicatorRight" />
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -75,32 +77,53 @@
                     android:layout_marginStart="8dp"/>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <Button
+                    android:id="@+id/categorySwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:backgroundTint="@color/purpleBackground"
+                    android:gravity="center"
+                    android:text="Categorías"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutCat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+            </LinearLayout>
+
+
         </TableLayout>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/showFinishedTasks"
-            android:gravity="start"
-            android:fontFamily="sans-serif-light"
-            android:paddingVertical="10dp"
-            android:textColor="@color/colorTextBlack"
-            android:textSize="18sp" />
 
         <CheckBox
+
+            android:text="Mostrar tareas terminadas:"
             android:id="@+id/showFinishedTasks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
             android:gravity="end"
+            android:textSize="18sp"
             android:checked="false"/>
 
     </LinearLayout>

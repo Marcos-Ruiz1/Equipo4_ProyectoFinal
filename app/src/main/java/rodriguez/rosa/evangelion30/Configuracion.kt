@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.Filter
 import android.widget.GridView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,19 +18,22 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import rodriguez.rosa.evangelion30.Controladores.ControladorConfiguracion
 import rodriguez.rosa.evangelion30.Controladores.ControladorHome
-import rodriguez.rosa.evangelion30.DAO.TasksDAO
-import rodriguez.rosa.evangelion30.ui.home.HomeFragment
 import rodriguez.rosa.evangelion30.util.FiltersManager
 
 class Configuracion : AppCompatActivity(){
 
     private var adaptador: Configuracion.AdaptadorConf? = null
     var options  = ArrayList<String>()
+
+
     var categorias  = ArrayList<String>()
-
-
+    private var categoriesList = mutableListOf<String>()
+    private lateinit var llCategories: LinearLayout
+    var showingCategories = false
+    var creatingButtons = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,7 @@ class Configuracion : AppCompatActivity(){
         }
 
         setUp()
+        categoriesList = loadCategories()
 
         //Instancia del adaptador y establecerlo al GridView para que muestras las tasks
         adaptador = Configuracion.AdaptadorConf(this, options,categorias)
@@ -50,12 +54,52 @@ class Configuracion : AppCompatActivity(){
         tasksGridView.adapter = adaptador
         val categoriaInput: EditText = findViewById(R.id.categoryInput)
         val search: Button = findViewById(R.id.addCategoryButton)
+        val categorySwitch : Button = findViewById(R.id.categorySwitch)
+        llCategories = findViewById(R.id.layoutCat)
 
         search.setOnClickListener {
 
             FiltersManager.getInstance().setCategoryFilter(categoriaInput.text.toString())
             ControladorHome.getInstance().refreshTasks()
             Log.e(null,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA SÍ LLEGO PTM")
+
+        }
+
+        categorySwitch.setOnClickListener{
+
+            if(!showingCategories){
+                if(!creatingButtons){
+                    addCheckboxesFromCategories(this,llCategories)
+                    creatingButtons = true
+                }
+
+                llCategories.isVisible=true
+                showingCategories = true
+            }
+
+            else if(showingCategories){
+                llCategories.isVisible=false
+                showingCategories = false
+            }
+        }
+    }
+
+
+
+    private fun loadCategories(): MutableList<String> {
+        val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val categoriesSet = sharedPreferences.getStringSet("categories", emptySet())
+        return (categoriesSet?.toList() ?: emptyList()).toMutableList()
+    }
+
+    fun addCheckboxesFromCategories(context: Context, layout: LinearLayout) {
+        val categories = loadCategories()
+
+        for (category in categories) {
+            val checkBox = CheckBox(context)
+            checkBox.text = category
+
+            llCategories.addView(checkBox)
         }
     }
 
@@ -136,6 +180,8 @@ class Configuracion : AppCompatActivity(){
             return vista!!
         }
     }
+
+
 
 
 

@@ -129,7 +129,16 @@
                     android:background="@drawable/round_button"
                     android:text="@string/agregarButton" />
 
+
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="30dp"
+                />
 
             <GridLayout
                 android:id="@+id/layoutCategorias"
