@@ -33,7 +33,7 @@
     <string name="upArrow">^</string>
     <!--    descripcion de las tareas-->
     <string name="titutloActualizarTarea">Actualizar tarea</string>
-    <string name="taskTitle">Titulo de la tarea</string>
+    <string name="taskTitle">Título de la tarea</string>
     <string name="taskDescription">Descripción</string>
     <string name="categories">Categoría</string>
     <string name="withDeadline">Sin fecha límite</string>
@@ -57,7 +57,7 @@
     <!--    configuracion-->
     <string name="showTasksTittle">Mostrar tareas por:</string>
     <string name="showFinishedTasks">Mostrar tareas terminadas:</string>
-    <string name="category_hint">Categoria:</string>
+    <string name="category_hint">Categoría:</string>
     <string name="search">Buscar:</string>
 
     <!--    Estadisticas-->

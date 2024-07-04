@@ -1,13 +1,14 @@
 package rodriguez.rosa.evangelion30
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -16,11 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
-import rodriguez.rosa.evangelion30.Controladores.ControladorEditTask
-import rodriguez.rosa.evangelion30.dominio.Task
-import rodriguez.rosa.evangelion30.util.DataBaseManager
 import com.loper7.date_time_picker.number_picker.NumberPicker
+import rodriguez.rosa.evangelion30.Controladores.ControladorEditTask
 import rodriguez.rosa.evangelion30.Modelo.ModeloEditTask
+import rodriguez.rosa.evangelion30.dominio.Task
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 
@@ -41,6 +41,8 @@ class Edit_Task_Activity : AppCompatActivity(), Subscriptor {
     private lateinit var seleccionadorDia: com.loper7.date_time_picker.number_picker.NumberPicker
     private lateinit var checkBoxSinFehca: CheckBox
     private lateinit var botonAgregar: Button
+    private lateinit var checkboxContainer : LinearLayout
+    private lateinit var categoryList : MutableList<String>
     private lateinit var id: String
 //    fin de los atributos de la pantalla
 
@@ -70,6 +72,7 @@ class Edit_Task_Activity : AppCompatActivity(), Subscriptor {
         seleccionadorDia      = findViewById(R.id.np_datetime_day)
         checkBoxSinFehca      = findViewById<CheckBox>(R.id.checkboxDeadline)
         tituloActividad       = findViewById<TextView>(R.id.tituloActividad)
+        checkboxContainer     = findViewById(R.id.checkboxContainer)
         id = intent.getStringExtra("id").toString()
 
         if (this.intent.extras != null) {
@@ -78,6 +81,9 @@ class Edit_Task_Activity : AppCompatActivity(), Subscriptor {
 
         setearDatos()
         setearBotones()
+
+        categoryList = loadCategories()
+        addCheckboxesFromCategories(this,checkboxContainer)
 
         ModeloEditTask.getInstance().addSubscriber(this)
     }
@@ -153,17 +159,47 @@ class Edit_Task_Activity : AppCompatActivity(), Subscriptor {
             val year = seleccionadorAnio.value
             val date = "%02d/%02d/%04d".format(day, month, year)
 
+            val selectedCategories = mutableListOf<String>()
+            for (i in 0 until checkboxContainer.childCount) {
+                val view = checkboxContainer.getChildAt(i)
+                if (view is CheckBox && view.isChecked) {
+                    selectedCategories.add(view.text.toString())
+                }
+            }
+
+
+
             val task = Task(
                 id = id,
                 titulo = textoTitulo.text.toString(),
                 descripcion = textoDescripcion.text.toString(),
                 fecha = date,
-                categoria = textoCategoria.text.toString(),
+                categoria = listToString(selectedCategories),
                 prioridad =  (spinner.selectedItem as String).toInt(),
                 terminado = false
             )
 
             ControladorEditTask.getInstance().editTask(task)
+        }
+
+        botonAgregarCategoria.setOnClickListener{
+            val category = textoCategoria.text.toString().trim()
+
+            if (category.isNotEmpty()) {
+                if (!categoryList.contains(category)) {
+                    addCategoryCheckBox(category)
+                    categoryList.add(category)
+                    saveCategories(categoryList)  // Guardar categorías en el archivo local
+                    Toast.makeText(this, "Categoría guardada: $category", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "La categoría ya existe: $category", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Ingrese una categoría válida", Toast.LENGTH_SHORT).show()
+            }
+
+            // Limpiar el campo después de agregar
+            textoCategoria.text.clear()
         }
     }
 
@@ -209,6 +245,44 @@ class Edit_Task_Activity : AppCompatActivity(), Subscriptor {
         this.startActivity(intent)
         startActivity(Intent(this, MainActivity::class.java))
         this.finish()
+    }
+
+    fun saveCategories(categories: List<String>) {
+        val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("categories", categories.toSet())
+        editor.apply()
+    }
+
+
+    fun loadCategories(): MutableList<String> {
+        val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val categoriesSet = sharedPreferences.getStringSet("categories", emptySet())
+        return (categoriesSet?.toList() ?: emptyList()).toMutableList()
+    }
+
+
+    private fun addCheckboxesFromCategories(context: Context, layout: LinearLayout) {
+        val categories = loadCategories()
+
+        for (category in categories) {
+            val checkBox = CheckBox(context)
+            checkBox.text = category
+
+            layout.addView(checkBox)
+        }
+    }
+
+    private fun addCategoryCheckBox(category: String) {
+        val checkBox = CheckBox(this).apply {
+            text = category
+
+        }
+        checkboxContainer.addView(checkBox)
+    }
+
+    fun listToString(list: MutableList<String>): String {
+        return list.joinToString(separator = ", ")
     }
 
 

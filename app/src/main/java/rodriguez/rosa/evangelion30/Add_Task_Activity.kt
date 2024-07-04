@@ -2,7 +2,6 @@ package rodriguez.rosa.evangelion30
 
 import android.content.Context
 import android.content.Intent
-
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -21,9 +20,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.loper7.date_time_picker.number_picker.NumberPicker
 import rodriguez.rosa.evangelion30.Controladores.ControladorAddTask
-import rodriguez.rosa.evangelion30.DAO.TasksDAO
 import rodriguez.rosa.evangelion30.Modelo.ModeloAddTask
-import rodriguez.rosa.evangelion30.Modelo.ModeloEditTask
 import rodriguez.rosa.evangelion30.util.NotificacionesUsuario
 import rodriguez.rosa.evangelion30.util.Subscriptor
 
@@ -218,7 +215,7 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
                 Toast.makeText(this, "Ingrese una categoría válida", Toast.LENGTH_SHORT).show()
             }
 
-            // Limpiar el campo después de agregar
+
             textoCategoria.text.clear()
         }
 
@@ -244,7 +241,7 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         this.finish()
     }
 
-    // Guardar categorías en SharedPreferences
+
     fun saveCategories(categories: List<String>) {
         val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -252,23 +249,21 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
         editor.apply()
     }
 
-    // Cargar categorías desde SharedPreferences
+
     fun loadCategories(): MutableList<String> {
         val sharedPreferences = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val categoriesSet = sharedPreferences.getStringSet("categories", emptySet())
         return (categoriesSet?.toList() ?: emptyList()).toMutableList()
     }
 
-    // Método para agregar checkboxes dinámicamente basados en las categorías guardadas
+
     private fun addCheckboxesFromCategories(context: Context, layout: LinearLayout) {
         val categories = loadCategories()
 
         for (category in categories) {
             val checkBox = CheckBox(context)
             checkBox.text = category
-            // Puedes establecer otros atributos para el CheckBox aquí si es necesario
 
-            // Agrega el CheckBox al layout proporcionado (LinearLayout)
             layout.addView(checkBox)
         }
     }
@@ -282,7 +277,7 @@ class Add_Task_Activity : AppCompatActivity(), Subscriptor{
     }
 
     fun listToString(list: MutableList<String>): String {
-        return list.joinToString(separator = ", ") // Puedes cambiar el separador según tus necesidades
+        return list.joinToString(separator = ", ")
     }
 
 

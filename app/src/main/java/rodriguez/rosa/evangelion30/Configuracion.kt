@@ -33,6 +33,7 @@ class Configuracion : AppCompatActivity(){
     var categorias  = ArrayList<String>()
     private var categoriesList = mutableListOf<String>()
     private lateinit var llCategories: LinearLayout
+    private lateinit var showFinishedTasks : CheckBox
     var showingCategories = false
     var creatingButtons = false
 
@@ -61,6 +62,8 @@ class Configuracion : AppCompatActivity(){
         val categoriaInput: EditText = findViewById(R.id.categoryInput)
         val search: Button = findViewById(R.id.addCategoryButton)
         val categorySwitch : Button = findViewById(R.id.categorySwitch)
+
+
         llCategories = findViewById(R.id.layoutCat)
 
         val notFinishedTaskCheckBox: CheckBox = findViewById(R.id.showFinishedTasks)
@@ -69,10 +72,20 @@ class Configuracion : AppCompatActivity(){
         search.setOnClickListener {
             filterManager.setCategoryFilter(categoriaInput.text.toString())
             ControladorHome.getInstance().refreshTasks()
-            Log.e(null,"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA SÍ LLEGO PTM")
+            Log.e(null,"Si")
+
+            val homeActivity: Intent = Intent(this, MainActivity::class.java)
+            this.startActivity(homeActivity)
+            this.finish()
 
 
         }
+
+
+
+
+
+
 
         categorySwitch.setOnClickListener{
 
@@ -91,6 +104,8 @@ class Configuracion : AppCompatActivity(){
                 showingCategories = false
             }
         }
+
+
     }
 
 
@@ -101,18 +116,15 @@ class Configuracion : AppCompatActivity(){
         return (categoriesSet?.toList() ?: emptyList()).toMutableList()
     }
 
-    fun addCheckboxesFromCategories(context: Context, layout: LinearLayout) {
+    private fun addCheckboxesFromCategories(context: Context, layout: LinearLayout) {
         val categories = loadCategories()
 
         for (category in categories) {
             val checkBox = CheckBox(context)
             checkBox.text = category
 
-            llCategories.addView(checkBox)
+            layout.addView(checkBox)
 
-            val homeActivity: Intent = Intent(this, MainActivity::class.java)
-            this.startActivity(homeActivity)
-            this.finish()
 
         }
     }
@@ -122,6 +134,7 @@ class Configuracion : AppCompatActivity(){
         options.add("Fecha ascendente")
         options.add("Fecha descendente")
         options.add("Prioridad")
+        options.add("Sin tareas terminadas")
 
     }
 
@@ -152,37 +165,44 @@ class Configuracion : AppCompatActivity(){
                 vista = inflater.inflate(R.layout.configuracion_padre, parent, false)
             }
 
-            // Find the parent layout and set its properties
+
             val layout = vista?.findViewById<LinearLayout>(R.id.groupItemLayout)
             val textView = vista?.findViewById<TextView>(R.id.groupItemTextView)
             textView?.text = conf  // Set text based on your data
 
-            // Set the entire layout to be clickable and define its click behavior
+
             layout?.isClickable = true
             layout?.setOnClickListener {
-                // Handle the click event based on the position
+
+
                 when (position) {
                     0 -> {
                         // Action for "Todas"
                         FiltersManager.getInstance().turnEverythingOff()
                         ControladorHome.getInstance().refreshTasks()
 
+
                     }
                     1 -> {
-                        // Action for "Fecha ascendente"
+                        // Fecha ascendente
 
                         FiltersManager.getInstance().turnOnFechaAscendenteFilter()
                         ControladorConfiguracion.getInstance().orderAscendentDates()
                     }
                     2 -> {
-                        // Action for "Fecha descendente"
+                        // Fecha descendente
                         FiltersManager.getInstance().turnOnFechaDescendenteFilter()
                         ControladorConfiguracion.getInstance().orderDescendent()
                     }
                     3 -> {
-                        // Action for "Prioridad"
+                        // Prioridad
                         FiltersManager.getInstance().turnOnPriorityFilter()
                         ControladorConfiguracion.getInstance().orderPriority()
+                    }
+                    4 -> {
+                        // Sin tareas terminadas
+                        FiltersManager.getInstance().turnOnTareasTerminadasFilter()
+                        ControladorConfiguracion.getInstance().orderList()
                     }
                     else -> {
                         // Default action
